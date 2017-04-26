@@ -4,17 +4,17 @@
 
 //  function connect_db(){
 //      $server = 'localhost';
-//      $user = 'root';
+//      $user = '';
 //      $pass = '';
-//      $database = 'vpos';
+//      $database = '';
 //      $connection = new mysqli($server, $user, $pass, $database);
 //      return $connection;
 // }
 
 
 function pdo(){
-  $dsn = 'mysql:host=localhost;dbname=vpos;charset=utf8';
-  $usr = 'root';
+  $dsn = 'mysql:host=localhost;dbname=;charset=utf8';
+  $usr = '';
   $pwd = '';
 
   $pdo = new \Slim\PDO\Database($dsn, $usr, $pwd);
