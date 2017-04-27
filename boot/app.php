@@ -5,7 +5,7 @@
   $app = new \Slim\App([
     "settings" =>[
       'determineRouteBeforeAppMiddleware' => false,
-      'displayErrorDetails' => true ,
+      'displayErrorDetails' => true,
     ],
   ]);
 

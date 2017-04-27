@@ -3,10 +3,10 @@
   // customer routes ..
   
   // view all customer ...
-  $app->get('/api/v1/customers' ,'CustomerController:customers');
+  $app->get('/api/v1/customers' ,'CustomerController:showCustomers');
 
   // view single customer ...
-  $app->get('/api/v1/customer/{id}' ,'CustomerController:customer');
+  $app->get('/api/v1/customer/{id}' ,'CustomerController:showCustomer');
 
   // add new customer ....
   $app->post('/api/v1/customers/add' ,'CustomerController:addCustomer');

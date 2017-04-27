@@ -12,16 +12,16 @@
   {
 
     //  show all customer ...
-    public function customers( Request $request , Response $response )
+    public function showCustomers( Request $request , Response $response)
     {
         // calling the pdo function to create a new instance of pdo ...
         $db = pdo();
-
         $selectCustomers = $db->select()->from('customer');
-
         $stmt = $selectCustomers->execute();
         $data = $stmt->fetchAll();
         $db = null;
+
+        
 
         if($data != null){
         return $response->withHeader('Content-Type' , 'application/json')
@@ -36,11 +36,11 @@
 
       } // /stmt. else
 
-    } // /fn. customers.. 
+    } // /md: customers.. 
 
 
     // show single customer ...
-    public function customer($request , $response , $arg){
+    public function showCustomer($request , $response , $arg){
 
       $customer_id = $arg['id'];
       $db = pdo();
@@ -50,6 +50,7 @@
       $data = $stmt->fetch();
       $db = null;
 
+      
 
       if($data != null){
 
@@ -64,7 +65,7 @@
 
       } // /stmt. else
 
-    }// /fn. customer...
+    }// /md: customer...
 
 
     // create new customers
@@ -141,7 +142,15 @@
         $data = $stmt
                     ->fetch();
 
+        // check the is already exist or not ...$_COOKIE
 
+        if($data == null){
+
+                return $response->withHeader('Content-Type','application/json')
+                ->withJson([
+                "code" => "404",
+                "message" => "No valid user found"]); 
+         }
 
         $first_name =
                  $request->getParam('first_name')  ?? $data['first_name'] ;
@@ -203,52 +212,66 @@
                        ->table('customer')
                        ->where('customer_id', '=', $customer_id);
 
-        $update = $updateStatement->execute();
+         $updateStatement->execute();
 
         $db = null;
-        try {
+
+       
             return $response->withHeader('Content-Type' , 'application/json')
                       ->withJson([ 
                           'code' => '200', 
                           'message' => ' update created successfully .']);
 
-        }catch(PDOException $e) {
-          return $response->withHeader('Content-Type' , 'application/json')
-                    ->withJson([
-                      'code' => '500',
-                      'message' => 'Internal Server Error']);
-        }
 
 
-    } // /fn. updateCustomer 
+    } // /md: updateCustomer 
 
     // delete customer ...
     public function deleteCustomer(Request $request , Response $response , $arg){
         
-        $customer_id = $arg['id'];
+                $customer_id = $arg['id'];
 
-        $db = pdo();
+                $db = pdo();
 
-        $deleteCustomer = $db->delete()
-                                ->from('customer')
-                                ->where('customer_id', '=', $customer_id);
+                // select that particular users
+                $selectStatement = $db->select()
+                                        ->from('customer')
+                                        ->where('customer_id' , '=' ,$customer_id);
+                $stmt = $selectStatement
+                        ->execute();
 
-        $deleteCustomer->execute();
+                
 
-        try{
-            return $response->withHeader('Content-Type' , 'application/json')
-                      ->withJson([ 
-                          'code' => '200', 
-                          'message' => ' customer deleted successfully .']);
-        }catch(PDOException $e ){
-             return $response->withHeader('Content-Type' , 'application/json')
-                    ->withJson([
-                      'code' => '500',
-                      'message' => 'Internal Server Error']);
+                $data = $stmt
+                        ->fetch();
 
-        }
+                // check the user is exist or not ...
 
-    }// /fn. delete the customer ...
+                if($data == null){
+
+                        return $response->withHeader('Content-Type','application/json')
+                        ->withJson([
+                        "code" => "404",
+                        "message" => "No valid user found"]); 
+                }
 
 
-  } // /ctrl. CustomerCtrl 
+
+                $deleteCustomer = $db->delete()
+                                        ->from('customer')
+                                        ->where('customer_id', '=', $customer_id);
+
+                $delete = $deleteCustomer->execute();
+
+                $db = null;
+
+       
+                return $response->withHeader('Content-Type' , 'application/json')
+                        ->withJson([ 
+                                'code' => '200', 
+                                'message' => ' customer deleted successfully .']);
+
+        }// /md: delete the customer ...
+
+
+  } // /ctrl:Customer
