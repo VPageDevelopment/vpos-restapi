@@ -6,16 +6,16 @@
 //      $server = 'localhost';
 //      $user = 'root';
 //      $pass = '';
-//      $database = 'vpos';
+//      $database = '';
 //      $connection = new mysqli($server, $user, $pass, $database);
 //      return $connection;
 // }
 
 
 function pdo(){
-  $dsn = 'mysql:host=localhost;dbname=vpos;charset=utf8';
+  $dsn = 'mysql:host=localhost;dbname=;charset=utf8';
   $usr = 'root';
-  $pwd = 'rootpass';
+  $pwd = '';
 
   $pdo = new \Slim\PDO\Database($dsn, $usr, $pwd);
   return $pdo;
