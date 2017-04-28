@@ -2,14 +2,6 @@
 
 // adding pdo to the container ...
 
-//  function connect_db(){
-//      $server = 'localhost';
-//      $user = 'root';
-//      $pass = '';
-//      $database = '';
-//      $connection = new mysqli($server, $user, $pass, $database);
-//      return $connection;
-// }
 
 
 function pdo(){
