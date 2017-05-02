@@ -5,52 +5,54 @@
   class SupplierController
   {
       public function showSuppliers($request , $response)
-      {   
+      {
 
-        $db = pdo();
-        $selectSuppliers = $db->select()->from('supplier');
-        $stmt = $selectSuppliers->execute();
-        $data = $stmt->fetchAll();
-        $db = null;
+          $db = pdo();
+          $selectSuppliers = $db->select()->from('supplier');
+          $stmt = $selectSuppliers->execute();
+          $data = $stmt->fetchAll();
+          $db = null;
 
-     if($data != null){
-        return $response->withHeader('Content-Type' , 'application/json' , 'JSON_UNESCAPED_UNICODE')
-                        ->withJson(["suppliers" => $data]);
-      } else {
+           if($data != null){
+              return $response->withHeader('Content-Type' , 'application/json')
+                              ->withJson(["suppliers" => $data]);
+            } else {
 
-        return $response->withHeader('Content-Type','application/json')
-                        ->withJson([
-                                    "code" => "404",
-                                    "message" => "No records found"
-                                  ]);
-          } 
-      } // /md: showSuppliers .. 
+              return $response->withHeader('Content-Type','application/json')
+                              ->withJson([
+                                          "code" => "404",
+                                          "message" => "No records found"
+                                        ]);
+                }
+
+
+      } // /md: showSuppliers ..
+
+
 
       public function showSupplier($request , $response , $arg){
-        $supplier_id = $arg['id'];
-        $db = pdo();
-        // select that particular users
-        $selectStatement = $db->select()->from('supplier')->where('supplier_id' , '=' , $supplier_id);
-        $stmt = $selectStatement->execute();
-        $data = $stmt->fetch();
-        $db = null;
+              $supplier_id = $arg['id'];
+              $db = pdo();
+              // select that particular users
+              $selectStatement = $db->select()->from('supplier')->where('supplier_id' , '=' , $supplier_id);
+              $stmt = $selectStatement->execute();
+              $data = $stmt->fetch();
+              $db = null;
 
-        
+              if($data != null){
 
-        if($data != null){
+                      return $response->withJson(["message" => $data ]);
 
-                return $response->withJson(["message" => $data ]);
+              }else{
 
-        }else{
+                  return $response->withHeader('Content-Type','application/json')
+                  ->withJson([
+                  "code" => "404",
+                  "message" => "No valid user found"]);
 
-            return $response->withHeader('Content-Type','application/json')
-            ->withJson([
-            "code" => "404",
-            "message" => "No valid user found"]);
+              } // /stmt. else
 
-        } // /stmt. else
-
-      } // /md: showSupplier ...  
+      } // /md: showSupplier ...
 
 
       public function addSupplier($request , $response){
@@ -70,12 +72,11 @@
                 $country = $request->getParam('country');
                 $comments = $request->getParam('comments');
                 $account = $request->getParam('account');
-         
 
                 // create a new instance of slim\pdo by calling the pdo ...
                 $db = pdo();
-                
-                // insert into supplier table 
+
+                // insert into supplier table
                 $insertStatment = $db->insert(array(
                 'company_name','agency_name',
                 'first_name','last_name','gender','email',
@@ -87,15 +88,15 @@
                 $company_name , $agency_name ,
                 $first_name , $last_name , $gender , $email ,
                 $phone_number , $address_one , $address_two ,
-                $city , $state , $zip , $country , $comments , $account 
+                $city , $state , $zip , $country , $comments , $account
                 ));
 
                 $insertStatment->execute();
 
                 if($insertStatment->execute()){
                     return $response->withHeader('Content-Type' , 'application/json')
-                            ->withJson([ 
-                                'code' => '200', 
+                            ->withJson([
+                                'code' => '200',
                                 'message' => ' New supplier created successfully .']);
                 }else{
                 return $response->withHeader('Content-Type' , 'application/json')
@@ -104,35 +105,30 @@
                             'message' => 'Sorry Error Occurs ..']);
                 }
 
-
       } // /md: addSupplier
 
 
       public function updateSupplier($request , $response , $arg){
-                    
+
                     $supplier_id = $arg['id'];
                     $db = pdo();
-                    
+
                     // select that particular users
                     $selectStatement = $db->select()
                                                 ->from('supplier')
                                                 ->where('supplier_id' , '=' ,$supplier_id);
                         $stmt = $selectStatement
                                     ->execute();
-
                         $db = null;
-
                         $data = $stmt
                                     ->fetch();
-
                         // check the is already exist or not ...$_COOKIE
 
                         if($data == null){
-
                                 return $response->withHeader('Content-Type','application/json')
                                 ->withJson([
                                 "code" => "404",
-                                "message" => "No valid user found"]); 
+                                "message" => "No valid user found"]);
                         };
 
 
@@ -144,33 +140,33 @@
 
                         $first_name =
                                 $request->getParam('first_name')  ?? $data['first_name'] ;
-                        $last_name = 
+                        $last_name =
                                 $request->getParam('last_name')  ?? $data['last_name'];
                         $gender =
                                 $request->getParam('gender')  ?? $data['gender'];
-                        $email = 
+                        $email =
                                 $request->getParam('email')  ?? $data['email'];
-                        $phone_number = 
+                        $phone_number =
                                 $request->getParam('phone_number')  ?? $data['phone_number'];
-                        $address_one = 
+                        $address_one =
                                 $request->getParam('address_one')  ?? $data['address_one'];
-                        $address_two = 
+                        $address_two =
                                 $request->getParam('address_two')  ?? $data['address_two'];
-                        $city = 
+                        $city =
                                 $request->getParam('city')  ?? $data['city'];
-                        $state = 
+                        $state =
                                 $request->getParam('state')  ?? $data['state'];
-                        $zip = 
+                        $zip =
                                 $request->getParam('zip')  ?? $data['zip'];
-                        
-                        $comments = 
+
+                        $comments =
                                 $request->getParam('comments')  ?? $data['comments'];
-                 
-                        $account = 
+
+                        $account =
                                 $request->getParam('account')  ?? $data['account'];
-                        
+
                         $db = pdo();
-                    
+
                         // update the supplier ...
                         $updateStatement = $db->update(array(
                                     'company_name' => $company_name ,
@@ -187,7 +183,7 @@
                                     'zip' => $zip ,
                                     'comments' => $comments,
                                     'account'=> $account
-                                    
+
                                     ))
                                     ->table('supplier')
                                     ->where('supplier_id', '=', $supplier_id);
@@ -196,58 +192,43 @@
 
                         $db = null;
 
-                    
+
                             return $response->withHeader('Content-Type' , 'application/json')
-                                    ->withJson([ 
-                                        'code' => '200', 
+                                    ->withJson([
+                                        'code' => '200',
                                         'message' => ' update  supplier  successfully .']);
 
       }// /md: updateSupplire
 
 
       public function deleteSupplier($request , $response , $arg){
-
                 $supplier_id = $arg['id'];
                 $db = pdo();
-
                 // select that particular users
                 $selectStatement = $db->select()
                                         ->from('supplier')
                                         ->where('supplier_id' , '=' ,$supplier_id);
                 $stmt = $selectStatement
                         ->execute();
-
-                
-
                 $data = $stmt
                         ->fetch();
-
                 // check the user is exist or not ...
-
                 if($data == null){
-
                         return $response->withHeader('Content-Type','application/json')
                         ->withJson([
                         "code" => "404",
-                        "message" => "No valid user found"]); 
+                        "message" => "No valid user found"]);
                 }
-
-
-
                 $deleteSupplier = $db->delete()
                                         ->from('supplier')
                                         ->where('supplier_id', '=', $supplier_id);
-
                 $delete = $deleteSupplier->execute();
 
                 $db = null;
-
-       
                 return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson([ 
-                                'code' => '200', 
+                        ->withJson([
+                                'code' => '200',
                                 'message' => ' supplier deleted successfully .']);
         }// /md: delete the supplier ...
 
 } // /ctrl:Supplier
-

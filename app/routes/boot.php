@@ -8,3 +8,9 @@
 
     // suppliers
     require __DIR__ . '/./supplier.php';
+
+    // item kit
+    require __DIR__ . '/./item_kit.php';
+
+    // sales
+    require __DIR__ . '/./sale.php';

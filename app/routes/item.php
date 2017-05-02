@@ -1,6 +1,6 @@
 <?php
 
-  
+
   // view all item ...
   $app->get('/api/v1/items' ,'ItemController:showItems');
 
@@ -10,9 +10,12 @@
   // add new item ....
   $app->post('/api/v1/items/add' ,'ItemController:addItem');
 
-  // // update existing item ...
-  // $app->put('/api/v1/item/update/{id}' ,'ItemController:updateItem');
+  // // upload files ....
+  // $app->post('/api/v1/items/upload' , 'ItemController:uploadFile');
 
-  // //delte existing item .... 
-  // $app->delete('/api/v1/item/delete/{id}' , 'ItemController:deleteItem');
+  // update existing item ...
+  $app->put('/api/v1/item/update/{id}' ,'ItemController:updateItem');
 
+
+  // //delte existing item ....
+  $app->delete('/api/v1/item/delete/{id}' , 'ItemController:deleteItem');

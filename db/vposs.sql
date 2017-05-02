@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2017 at 09:17 AM
+-- Generation Time: May 02, 2017 at 02:08 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 7.0.13
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `vpos`
+-- Database: `vposs`
 --
 
 -- --------------------------------------------------------
@@ -71,7 +71,7 @@ CREATE TABLE `items` (
   `cost_price` int(11) NOT NULL,
   `retail_price` int(11) NOT NULL,
   `tax_one` int(11) NOT NULL,
-  `tax-two` int(11) NOT NULL,
+  `tax_two` int(11) NOT NULL,
   `quantity_stock` int(11) NOT NULL,
   `receiving_quantity` int(11) NOT NULL,
   `description` text NOT NULL,
@@ -85,8 +85,56 @@ CREATE TABLE `items` (
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`item_id`, `upc_ean_isbn`, `item_name`, `category`, `supplier_fk`, `cost_price`, `retail_price`, `tax_one`, `tax-two`, `quantity_stock`, `receiving_quantity`, `description`, `avatar`, `allow_alt_description`, `item_has_serial_number`, `deleted`) VALUES
-(1, 468511615, 'water bottle', 'water', 1, 455, 500, 10, 10, 1, 1, 'awesome ', '', 'Y', 'Y', 'Y');
+INSERT INTO `items` (`item_id`, `upc_ean_isbn`, `item_name`, `category`, `supplier_fk`, `cost_price`, `retail_price`, `tax_one`, `tax_two`, `quantity_stock`, `receiving_quantity`, `description`, `avatar`, `allow_alt_description`, `item_has_serial_number`, `deleted`) VALUES
+(4, 468511615, 'water Bottle 2 ', 'water', 1, 0, 500, 10, 10, 1, 1, 'awesome ', '', 'Y', 'Y', 'Y'),
+(5, 468511615, 'water Bottle 2 ', 'water', 1, 0, 500, 10, 10, 1, 1, 'awesome ', '', 'Y', 'Y', 'Y'),
+(7, 468511615, 'water Bottle 3 ', 'water', 1, 0, 500, 10, 10, 1, 1, 'awesome ', '', 'Y', 'Y', 'Y'),
+(8, 468511615, 'water Bottle 3 ', 'water', 1, 0, 500, 10, 10, 1, 1, 'awesome ', '', 'Y', 'Y', 'Y');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `item_kits`
+--
+
+CREATE TABLE `item_kits` (
+  `item_kit_id` int(11) NOT NULL,
+  `item_kit_name` varchar(255) NOT NULL,
+  `item_kit_desc` text NOT NULL,
+  `item_fk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `item_kits`
+--
+
+INSERT INTO `item_kits` (`item_kit_id`, `item_kit_name`, `item_kit_desc`, `item_fk`) VALUES
+(9, 'item kit name 2', 'item kit des 2', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales`
+--
+
+CREATE TABLE `sales` (
+  `sales_id` int(11) NOT NULL,
+  `customer_fk` int(11) NOT NULL,
+  `item_fk` int(11) NOT NULL,
+  `amount_due` int(11) NOT NULL,
+  `amount_tendered` int(11) NOT NULL,
+  `change_due` int(11) DEFAULT NULL,
+  `type` varchar(255) NOT NULL,
+  `invoice` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sales`
+--
+
+INSERT INTO `sales` (`sales_id`, `customer_fk`, `item_fk`, `amount_due`, `amount_tendered`, `change_due`, `type`, `invoice`) VALUES
+(1, 3, 4, 100, 100, 10, 'cash 10', 'random text ...'),
+(2, 3, 4, 20, 10000, 20, 'cash 20', 'random text 2');
 
 -- --------------------------------------------------------
 
@@ -138,7 +186,22 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `items`
   ADD PRIMARY KEY (`item_id`),
-  ADD KEY `supplier_id` (`supplier_fk`);
+  ADD KEY `supplier_fk` (`supplier_fk`);
+
+--
+-- Indexes for table `item_kits`
+--
+ALTER TABLE `item_kits`
+  ADD PRIMARY KEY (`item_kit_id`),
+  ADD KEY `item_fk` (`item_fk`);
+
+--
+-- Indexes for table `sales`
+--
+ALTER TABLE `sales`
+  ADD PRIMARY KEY (`sales_id`),
+  ADD KEY `customer_fk` (`customer_fk`),
+  ADD KEY `item_fk` (`item_fk`);
 
 --
 -- Indexes for table `supplier`
@@ -159,7 +222,17 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `item_kits`
+--
+ALTER TABLE `item_kits`
+  MODIFY `item_kit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `sales`
+--
+ALTER TABLE `sales`
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
@@ -173,7 +246,20 @@ ALTER TABLE `supplier`
 -- Constraints for table `items`
 --
 ALTER TABLE `items`
-  ADD CONSTRAINT `items_supplier_fk` FOREIGN KEY (`supplier_fk`) REFERENCES `supplier` (`supplier_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `supplier_of _item_fk` FOREIGN KEY (`supplier_fk`) REFERENCES `supplier` (`supplier_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `item_kits`
+--
+ALTER TABLE `item_kits`
+  ADD CONSTRAINT `item_kit_fk` FOREIGN KEY (`item_fk`) REFERENCES `items` (`item_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `sales`
+--
+ALTER TABLE `sales`
+  ADD CONSTRAINT `sales_customer_fk` FOREIGN KEY (`customer_fk`) REFERENCES `customer` (`customer_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `sales_item_fk` FOREIGN KEY (`item_fk`) REFERENCES `items` (`item_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -6,8 +6,6 @@
       ServerRequestInterface as Request ,
       ResponseInterface as Response };
 
-
-
   class CustomerController
   {
 
@@ -20,8 +18,6 @@
         $stmt = $selectCustomers->execute();
         $data = $stmt->fetchAll();
         $db = null;
-
-        
 
         if($data != null){
         return $response->withHeader('Content-Type' , 'application/json')
@@ -36,7 +32,7 @@
 
       } // /stmt. else
 
-    } // /md: customers.. 
+    } // /md: customers..
 
 
     // show single customer ...
@@ -50,7 +46,7 @@
       $data = $stmt->fetch();
       $db = null;
 
-      
+
 
       if($data != null){
 
@@ -91,8 +87,8 @@
 
         // create a new instance of slim\pdo by calling the pdo ...
         $db = pdo();
-        
-        // insert into customer table 
+
+        // insert into customer table
         $insertStatment = $db->insert(array(
           'first_name','last_name','gender','email',
           'phone_number','address_one','address_two',
@@ -111,8 +107,8 @@
 
         if($insertStatment->execute()){
             return $response->withHeader('Content-Type' , 'application/json')
-                      ->withJson([ 
-                          'code' => '200', 
+                      ->withJson([
+                          'code' => '200',
                           'message' => ' New Customer created successfully .']);
         }else{
           return $response->withHeader('Content-Type' , 'application/json')
@@ -121,7 +117,7 @@
                       'message' => 'Sorry Error Occurs ..']);
         }
 
-       
+
     }
 
     // update the
@@ -129,7 +125,7 @@
     public function updateCustomer (Request $request , Response $response , $arg) {
        $customer_id = $arg['id'];
        $db = pdo();
-       
+
        // select that particular users
        $selectStatement = $db->select()
                                   ->from('customer')
@@ -149,46 +145,46 @@
                 return $response->withHeader('Content-Type','application/json')
                 ->withJson([
                 "code" => "404",
-                "message" => "No valid user found"]); 
+                "message" => "No valid user found"]);
          }
 
         $first_name =
                  $request->getParam('first_name')  ?? $data['first_name'] ;
-        $last_name = 
+        $last_name =
                 $request->getParam('last_name')  ?? $data['last_name'];
         $gender =
                 $request->getParam('gender')  ?? $data['gender'];
-        $email = 
+        $email =
                 $request->getParam('email')  ?? $data['email'];
-        $phone_number = 
+        $phone_number =
                 $request->getParam('phone_number')  ?? $data['phone_number'];
-        $address_one = 
+        $address_one =
                 $request->getParam('address_one')  ?? $data['address_one'];
-        $address_two = 
+        $address_two =
                 $request->getParam('address_two')  ?? $data['address_two'];
-        $city = 
+        $city =
                 $request->getParam('city')  ?? $data['city'];
-        $state = 
+        $state =
                 $request->getParam('state')  ?? $data['state'];
-        $zip = 
+        $zip =
                 $request->getParam('zip')  ?? $data['zip'];
-        $country = 
+        $country =
                 $request->getParam('country')  ?? $data['country'];
-        $comments = 
+        $comments =
                 $request->getParam('comments')  ?? $data['comments'];
-        $company = 
+        $company =
                 $request->getParam('company')  ?? $data['company'];
-        $account = 
+        $account =
                 $request->getParam('account')  ?? $data['account'];
-        $total = 
+        $total =
                 $request->getParam('total')  ?? $data['total'];
-        $discount = 
+        $discount =
                 $request->getParam('discount')  ?? $data['discount'];
-        $taxable = 
+        $taxable =
                 $request->getParam('taxable')  ?? $data['taxable'];
 
         $db = pdo();
-       
+
         // update the customer ...
         $updateStatement = $db->update(array(
                        'first_name' => $first_name ,
@@ -216,19 +212,19 @@
 
         $db = null;
 
-       
+
             return $response->withHeader('Content-Type' , 'application/json')
-                      ->withJson([ 
-                          'code' => '200', 
+                      ->withJson([
+                          'code' => '200',
                           'message' => ' update created successfully .']);
 
 
 
-    } // /md: updateCustomer 
+    } // /md: updateCustomer
 
     // delete customer ...
     public function deleteCustomer(Request $request , Response $response , $arg){
-        
+
                 $customer_id = $arg['id'];
 
                 $db = pdo();
@@ -240,7 +236,7 @@
                 $stmt = $selectStatement
                         ->execute();
 
-                
+
 
                 $data = $stmt
                         ->fetch();
@@ -252,7 +248,7 @@
                         return $response->withHeader('Content-Type','application/json')
                         ->withJson([
                         "code" => "404",
-                        "message" => "No valid user found"]); 
+                        "message" => "No valid user found"]);
                 }
 
 
@@ -265,10 +261,10 @@
 
                 $db = null;
 
-       
+
                 return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson([ 
-                                'code' => '200', 
+                        ->withJson([
+                                'code' => '200',
                                 'message' => ' customer deleted successfully .']);
 
         }// /md: delete the customer ...
