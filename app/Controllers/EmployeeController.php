@@ -6,22 +6,22 @@
       ServerRequestInterface as Request ,
       ResponseInterface as Response };
 
-  class CustomerController
+  class EmployeeController
   {
 
     //  show all customer ...
-    public function showCustomers( Request $request , Response $response)
+    public function showEmployees( Request $request , Response $response)
     {
         // calling the pdo function to create a new instance of pdo ...
         $db = pdo();
-        $selectCustomers = $db->select()->from('customer');
-        $stmt = $selectCustomers->execute();
+        $selectEmployees = $db->select()->from('employee');
+        $stmt = $selectEmployees->execute();
         $data = $stmt->fetchAll();
         $db = null;
 
         if($data != null){
         return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson(["customers" => $data]);
+                        ->withJson(["Employees" => $data]);
       } else {
 
         return $response->withHeader('Content-Type','application/json')
@@ -34,24 +34,19 @@
 
     } // /md: customers..
 
-
     // show single customer ...
-    public function showCustomer($request , $response , $arg){
+    public function showEmployee($request , $response , $arg){
 
-      $customer_id = $arg['id'];
+      $employee_id = $arg['id'];
       $db = pdo();
       // select that particular users
-      $selectStatement = $db->select()->from('customer')->where('customer_id' , '=' , $customer_id);
+      $selectStatement = $db->select()->from('employee')->where('employee_id' , '=' , $employee_id);
       $stmt = $selectStatement->execute();
       $data = $stmt->fetch();
       $db = null;
 
-
-
       if($data != null){
-
-            return $response->withJson(["message" => $data ]);
-
+            return $response->withJson(["Employee" => $data ]);
       }else{
 
         return $response->withHeader('Content-Type','application/json')
@@ -65,7 +60,7 @@
 
 
     // create new customers
-    public function addCustomer(Request $request , Response $response){
+    public function addEmployee(Request $request , Response $response){
 
         $first_name = $request->getParam('first_name');
         $last_name = $request->getParam('last_name');
@@ -79,12 +74,6 @@
         $zip = $request->getParam('zip');
         $country = $request->getParam('country');
         $comments = $request->getParam('comments');
-        $company = $request->getParam('company');
-        $account = $request->getParam('account');
-        $total = $request->getParam('total');
-        $discount = $request->getParam('discount');
-        $taxable = $request->getParam('taxable');
-        
 
         // create a new instance of slim\pdo by calling the pdo ...
         $db = pdo();
@@ -93,15 +82,13 @@
         $insertStatment = $db->insert(array(
           'first_name','last_name','gender','email',
           'phone_number','address_one','address_two',
-          'city','state','zip','country','comments',
-          'company','account','total','discount','taxable'
+          'city','state','zip','country','comments'
         ))
-        ->into('customer')
+        ->into('employee')
         ->values(array(
           $first_name , $last_name , $gender , $email ,
           $phone_number , $address_one , $address_two ,
-          $city , $state , $zip , $country , $comments ,
-          $company , $account , $total , $discount , $taxable
+          $city , $state , $zip , $country , $comments
         ));
 
         $insertStatment->execute();
@@ -110,27 +97,28 @@
             return $response->withHeader('Content-Type' , 'application/json')
                       ->withJson([
                           'code' => '200',
-                          'message' => ' New Customer created successfully .']);
+                          'message' => ' New Employee created successfully .']);
         }else{
           return $response->withHeader('Content-Type' , 'application/json')
                     ->withJson([
                       'code' => '500',
                       'message' => 'Sorry Error Occurs ..']);
-        }
+        };
 
 
     }
 
     // update the
 
-    public function updateCustomer (Request $request , Response $response , $arg) {
-       $customer_id = $arg['id'];
+    public function updateEmployee (Request $request , Response $response , $arg) {
+
+       $employee_id = $arg['id'];
        $db = pdo();
 
        // select that particular users
        $selectStatement = $db->select()
-                                  ->from('customer')
-                                  ->where('customer_id' , '=' ,$customer_id);
+                                  ->from('employee')
+                                  ->where('employee_id' , '=' ,$employee_id);
         $stmt = $selectStatement
                       ->execute();
 
@@ -140,14 +128,13 @@
                     ->fetch();
 
         // check the is already exist or not ...$_COOKIE
-
-        if($data == null){
+        if( $data == null ){
 
                 return $response->withHeader('Content-Type','application/json')
                 ->withJson([
                 "code" => "404",
-                "message" => "No valid user found"]);
-         }
+                "message" => "No valid employee found"]);
+         };
 
         $first_name =
                  $request->getParam('first_name')  ?? $data['first_name'] ;
@@ -173,18 +160,9 @@
                 $request->getParam('country')  ?? $data['country'];
         $comments =
                 $request->getParam('comments')  ?? $data['comments'];
-        $company =
-                $request->getParam('company')  ?? $data['company'];
-        $account =
-                $request->getParam('account')  ?? $data['account'];
-        $total =
-                $request->getParam('total')  ?? $data['total'];
-        $discount =
-                $request->getParam('discount')  ?? $data['discount'];
-        $taxable =
-                $request->getParam('taxable')  ?? $data['taxable'];
 
         $updated_at = getUpdateTime();
+
 
         $db = pdo();
 
@@ -202,45 +180,37 @@
                        'zip' => $zip ,
                        'country' => $country ,
                        'comments' => $comments,
-                       'company' => $company ,
-                       'account'=> $account,
-                       'total'=> $total,
-                       'discount' => $discount,
-                       'taxable' => $taxable,
                        'updated_at' => $updated_at
                        ))
-                       ->table('customer')
-                       ->where('customer_id', '=', $customer_id);
+                       ->table('employee')
+                       ->where('employee_id', '=', $employee_id);
 
          $updateStatement->execute();
 
         $db = null;
 
-
             return $response->withHeader('Content-Type' , 'application/json')
                       ->withJson([
                           'code' => '200',
-                          'message' => ' update created successfully .']);
+                          'message' => ' updated records successfully .']);
 
 
 
     } // /md: updateCustomer
 
     // delete customer ...
-    public function deleteCustomer(Request $request , Response $response , $arg){
+    public function deleteEmployee(Request $request , Response $response , $arg){
 
-                $customer_id = $arg['id'];
+                $employee_id = $arg['id'];
 
                 $db = pdo();
 
                 // select that particular users
                 $selectStatement = $db->select()
-                                        ->from('customer')
-                                        ->where('customer_id' , '=' ,$customer_id);
+                                        ->from('employee')
+                                        ->where('employee_id' , '=' ,$employee_id);
                 $stmt = $selectStatement
                         ->execute();
-
-
 
                 $data = $stmt
                         ->fetch();
@@ -253,23 +223,19 @@
                         ->withJson([
                         "code" => "404",
                         "message" => "No valid user found"]);
-                }
-
-
+                };
 
                 $deleteCustomer = $db->delete()
-                                        ->from('customer')
-                                        ->where('customer_id', '=', $customer_id);
+                                        ->from('employee')
+                                        ->where('employee_id', '=', $employee_id);
 
                 $delete = $deleteCustomer->execute();
-
                 $db = null;
-
 
                 return $response->withHeader('Content-Type' , 'application/json')
                         ->withJson([
                                 'code' => '200',
-                                'message' => ' customer deleted successfully .']);
+                                'message' => ' employee deleted successfully .']);
 
         }// /md: delete the customer ...
 

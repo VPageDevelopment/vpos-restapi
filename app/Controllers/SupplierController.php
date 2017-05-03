@@ -73,6 +73,7 @@
                 $comments = $request->getParam('comments');
                 $account = $request->getParam('account');
 
+
                 // create a new instance of slim\pdo by calling the pdo ...
                 $db = pdo();
 
@@ -165,6 +166,8 @@
                         $account =
                                 $request->getParam('account')  ?? $data['account'];
 
+                        $updated_at = getUpdateTime();
+
                         $db = pdo();
 
                         // update the supplier ...
@@ -182,7 +185,8 @@
                                     'state' => $state ,
                                     'zip' => $zip ,
                                     'comments' => $comments,
-                                    'account'=> $account
+                                    'account'=> $account,
+                                    'updated_at' => $updated_at
 
                                     ))
                                     ->table('supplier')

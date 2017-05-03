@@ -2,20 +2,19 @@
 
   namespace App\Controllers;
 
-  class ItemKitController
+  class GiftCardController
   {
-      public function showItemKits($request , $response)
+      public function showGiftCards($request , $response)
       {
-
         $db = pdo();
-        $selectItemKits = $db->select()->from('item_kits');
-        $stmt = $selectItemKits->execute();
+        $selectGiftCards = $db->select()->from('gift_card');
+        $stmt = $selectGiftCards->execute();
         $data = $stmt->fetchAll();
         $db = null;
 
      if($data != null){
         return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson(["itemKits" => $data]);
+                        ->withJson(["giftCards" => $data]);
       } else {
 
         return $response->withHeader('Content-Type','application/json')
@@ -26,20 +25,19 @@
           }
       } // /md: showItemKits ..
 
-      public function showItemKit($request , $response , $arg){
-        $item_kit_id = $arg['id'];
+      public function showGiftCard($request , $response , $arg){
+
+        $gift_card_id = $arg['id'];
         $db = pdo();
         // select that particular users
-        $selectStatement = $db->select()->from('item_kits')->where('item_kit_id' , '=' , $item_kit_id);
+        $selectStatement = $db->select()->from('gift_card')->where('gift_card_id' , '=' , $gift_card_id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetch();
         $db = null;
 
-
-
         if($data != null){
 
-                return $response->withJson(["itemKit" => $data ]);
+                return $response->withJson(["giftCards" => $data ]);
 
         }else{
 
@@ -53,24 +51,24 @@
       } // /md: showItemKit ...
 
 
-      public function addItemKit($request , $response){
+      public function addGiftCard($request , $response){
 
-                $item_kit_name = $request->getParam('item_kit_name');
-                $item_kit_desc = $request->getParam('item_kit_desc');
-                $item_fk = $request->getParam('item_fk');
+                $gift_card_number = $request->getParam('gift_card_number');
+                $gc_value = $request->getParam('gc_value');
+                $customer_fk = $request->getParam('customer_fk');
 
                 // create a new instance of slim\pdo by calling the pdo ...
                 $db = pdo();
 
                 // insert into itemKit table
                 $insertStatment = $db->insert(array(
-                'item_kit_name','item_kit_desc',
-                 'item_fk'
+                'gift_card_number','gc_value',
+                 'customer_fk'
                 ))
-                ->into('item_kits')
+                ->into('gift_card')
                 ->values(array(
-                $item_kit_name , $item_kit_desc  ,
-                $item_fk
+                $gift_card_number , $gc_value  ,
+                $customer_fk
                 ));
 
                 $insertStatment->execute();
@@ -79,7 +77,7 @@
                     return $response->withHeader('Content-Type' , 'application/json')
                             ->withJson([
                                 'code' => '200',
-                                'message' => ' New item kit is  created successfully .']);
+                                'message' => ' New Gift Card is  created successfully .']);
                 }else{
                 return $response->withHeader('Content-Type' , 'application/json')
                             ->withJson([
@@ -91,51 +89,44 @@
       } // /md: addItemKit
 
 
-      public function updateItemKit($request , $response , $arg){
+      public function updateGiftCard($request , $response , $arg){
 
-                    $item_kit_id = $arg['id'];
+                    $gift_card_id = $arg['id'];
                     $db = pdo();
-
                     // select that particular users
                     $selectStatement = $db->select()
-                                                ->from('item_kits')
-                                                ->where('item_kit_id' , '=' ,$item_kit_id);
+                                                ->from('gift_card')
+                                                ->where('gift_card_id' , '=' ,$gift_card_id);
                         $stmt = $selectStatement
                                     ->execute();
-
                         $db = null;
-
                         $data = $stmt
                                     ->fetch();
-
                         // check the is already exist or not ...$_COOKIE
-
                         if($data == null){
-
                                 return $response->withHeader('Content-Type','application/json')
                                 ->withJson([
                                 "code" => "404",
-                                "message" => "No valid user found"]);
+                                "message" => "No valid record found"]);
                         };
 
-
-                        $item_kit_name = $request->getParam('item_kit_name') ?? $data['item_kit_name'] ;
-                        $item_kit_desc = $request->getParam('item_kit_desc') ?? $data['item_kit_desc'] ;
-                        $item_fk = $request->getParam('item_fk') ?? $data['item_fk'] ;
+                        $gift_card_number = $request->getParam('gift_card_number') ?? $data['gift_card_number'] ;
+                        $gc_value = $request->getParam('gc_value') ?? $data['gc_value'] ;
+                        $customer_fk = $request->getParam('customer_fk') ?? $data['customer_fk'] ;
                         $updated_at = getUpdateTime();
 
                         $db = pdo();
 
                         // update the itemKit ...
                         $updateStatement = $db->update(array(
-                                    'item_kit_name' => $item_kit_name ,
-                                    'item_kit_desc' => $item_kit_desc ,
-                                    'item_fk' => $item_fk,
+                                    'gift_card_number ' => $gift_card_number  ,
+                                    'gc_value' => $gc_value ,
+                                    'customer_fk' => $customer_fk,
                                     'updated_at' => $updated_at
 
                                     ))
-                                    ->table('item_kits')
-                                    ->where('item_kit_id', '=', $item_kit_id);
+                                    ->table('gift_card')
+                                    ->where('gift_card_id' , '=' ,$gift_card_id);
 
                         $updateStatement->execute();
 
@@ -145,20 +136,20 @@
                             return $response->withHeader('Content-Type' , 'application/json')
                                     ->withJson([
                                         'code' => '200',
-                                        'message' => ' updated item kit record successfully .']);
+                                        'message' => ' Record updated  successfully .']);
 
       }// /md: updateItemKit
 
 
-      public function deleteItemKit($request , $response , $arg){
+      public function deleteGiftCard($request , $response , $arg){
 
-                $item_kit_id = $arg['id'];
+                $gift_card_id = $arg['id'];
                 $db = pdo();
 
                 // select that particular users
                 $selectStatement = $db->select()
-                                        ->from('item_kits')
-                                        ->where('item_kit_id' , '=' ,$item_kit_id);
+                                        ->from('gift_card')
+                                        ->where('gift_card_id' , '=' ,$gift_card_id);
                 $stmt = $selectStatement
                         ->execute();
 
@@ -168,23 +159,17 @@
                 // check the user is exist or not ...
 
                 if($data == null){
-
                         return $response->withHeader('Content-Type','application/json')
                         ->withJson([
                         "code" => "404",
                         "message" => "No valid record found"]);
                 }
 
-
                 $deleteItemKit = $db->delete()
-                                          ->from('item_kits')
-                                          ->where('item_kit_id' , '=' ,$item_kit_id);
-
+                                          ->from('gift_card')
+                                          ->where('gift_card_id' , '=' ,$gift_card_id);
                 $delete = $deleteItemKit->execute();
-
                 $db = null;
-
-
                 return $response->withHeader('Content-Type' , 'application/json')
                         ->withJson([
                                 'code' => '200',

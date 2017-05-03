@@ -14,3 +14,21 @@
 
     // sales
     require __DIR__ . '/./sale.php';
+
+    // gift cards
+    require __DIR__ . '/./gift-card.php';
+
+    // employee
+    require __DIR__ . '/./employee.php';
+
+    // employ login ...
+
+    require __DIR__ . '/./employee_login.php';
+
+    // employee permission module ...
+
+    require __DIR__ . '/./employee_permission.php';
+
+    // store config info ...
+
+    require __DIR__ . '/./store_config.php';

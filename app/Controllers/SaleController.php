@@ -128,6 +128,7 @@ class SaleController
               $change_due = $request->getParam('change_due') ?? $data['change_due'];
               $type = $request->getParam('type') ?? $data['type'];
               $invoice = $request->getParam('invoice') ?? $data['invoice'];
+              $updated_at = getUpdateTime();
 
 
               $db = pdo();
@@ -140,7 +141,8 @@ class SaleController
                           'amount_tendered' => $amount_tendered,
                           'change_due' => $change_due,
                           'type' => $type,
-                          'invoice' => $invoice
+                          'invoice' => $invoice,
+                          'updated_at' => $updated_at 
 
                           ))
                           ->table('sales')

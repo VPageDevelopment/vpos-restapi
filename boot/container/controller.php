@@ -10,7 +10,7 @@
 
     return new \App\Controllers\SupplierController;
   };
-  
+
 
   // ItemController
   $container['ItemController'] = function ($container){
@@ -27,4 +27,32 @@
   // SaleController
   $container['SaleController'] = function ($container){
     return new \App\Controllers\SaleController;
+  };
+
+
+  // GiftCardController
+  $container['GiftCardController'] = function ($container){
+    return new \App\Controllers\GiftCardController;
+  };
+
+  // EmployeeController
+  $container['EmployeeController'] = function ($container){
+    return new \App\Controllers\EmployeeController;
+  };
+
+
+  // EmployeeLoginController
+  $container['EmployeeLoginController'] = function ($container){
+    return new \App\Controllers\EmployeeLoginController;
+  };
+
+
+  // EmployeePermissionController
+  $container['EmployeePermissionController'] = function ($container){
+    return new \App\Controllers\EmployeePermissionController;
+  };
+
+  // EmployeePermissionController
+  $container['StoreConfigController'] = function ($container){
+    return new \App\Controllers\StoreConfigController;
   };

@@ -155,6 +155,8 @@
                        $item_has_serial_number = $request->getParam('item_has_serial_number') ?? $data['item_has_serial_number'] ;
                        $deleted = $request->getParam('deleted') ?? $data['deleted'];
 
+
+                       $updated_at = getUpdateTime();
                        $db = pdo();
 
                        // update the itemKit ...
@@ -173,7 +175,8 @@
                                    'avatar' => $avatar,
                                    'allow_alt_description' => $allow_alt_description,
                                    'item_has_serial_number' => $item_has_serial_number,
-                                   'deleted' => $deleted
+                                   'deleted' => $deleted,
+                                   'updated_at'=> $updated_at
 
                                    ))
                                    ->table('items')
