@@ -12,6 +12,3 @@ function pdo(){
   $pdo = new \Slim\PDO\Database($dsn, $usr, $pwd);
   return $pdo;
 }
-
-
-

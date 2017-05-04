@@ -21,7 +21,7 @@
 
 
   // importing the  routes boot files ...
-  require __DIR__ . '/../app/Routes/boot.php';
+  require __DIR__ . '/../app/routes/boot.php';
 
 
   // updated at
