@@ -52,7 +52,55 @@
     return new \App\Controllers\EmployeePermissionController;
   };
 
-  // EmployeePermissionController
+
+
+
+
+  // StoreConfigController
   $container['StoreConfigController'] = function ($container){
     return new \App\Controllers\StoreConfigController;
+  };
+
+  // StoreConfigGeneralController
+  $container['StoreConfigGeneralController'] = function ($container){
+    return new \App\Controllers\StoreConfigGeneralController;
+  };
+
+  // StoreConfigLocalController
+  $container['StoreConfigLocalController'] = function ($container){
+    return new \App\Controllers\StoreConfigLocalController;
+  };
+
+
+  // StoreConfigBarcodeController
+  $container['StoreConfigBarcodeController'] = function ($container){
+    return new \App\Controllers\StoreConfigBarcodeController;
+  };
+
+
+  // StoreConfigStockController
+  $container['StoreConfigStockController'] = function ($container){
+    return new \App\Controllers\StoreConfigStockController;
+  };
+
+
+  // StoreConfigReceiptController
+  $container['StoreConfigReceiptController'] = function ($container){
+    return new \App\Controllers\StoreConfigReceiptController;
+  };
+
+  // StoreConfigInvoiceController
+  $container['StoreConfigInvoiceController'] = function ($container){
+    return new \App\Controllers\StoreConfigInvoiceController;
+  };
+
+  // StoreConfigMailController
+  $container['StoreConfigMailController'] = function ($container){
+    return new \App\Controllers\StoreConfigMailController;
+  };
+
+
+  // StoreConfigMessageController
+  $container['StoreConfigMessageController'] = function ($container){
+    return new \App\Controllers\StoreConfigMessageController;
   };

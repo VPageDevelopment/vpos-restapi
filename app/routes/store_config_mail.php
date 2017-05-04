@@ -1,0 +1,6 @@
+<?php
+// view all item ...
+$app->get('/api/v1/store-config-mail/view' ,'StoreConfigMailController:viewStoreConfigMail');
+
+// update the store config info ...
+$app->put('/api/v1/store-config-mail/update' ,'StoreConfigMailController:updateStoreConfigMail');

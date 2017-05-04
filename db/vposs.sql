@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2017 at 02:41 PM
+-- Generation Time: May 04, 2017 at 11:16 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 7.0.13
 
@@ -290,7 +290,215 @@ CREATE TABLE `store_config` (
 --
 
 INSERT INTO `store_config` (`store_config_info_id`, `company_name`, `company_logo`, `company_address`, `website`, `email`, `company_phonenumber`, `fax`, `return_policy`, `created_at`, `updated_at`) VALUES
-(1, 'Vpage ', 'Vpage logo', 'vpage ,\r\nRamakrishna Street,\r\nKodampakkam.\r\nchennai.', 'http://vpageinc.com', 'vpagedevelopment@gmail.com', 6399999, 'fax', 'no return until the product as bug in it when we provide to you...', '2017-05-03 12:39:32', '2017-05-03 12:39:32');
+(1, 'Vpage Inc', 'Vpage logo', 'vpageince ,Ramakrishna Street ,Kodampakkam.chennai.', 'http://vpageinc.com', 'vpagedevelopment@gmail.com', 6399999, 'fax', 'no return until the product as bug in it when we provide to you...', '2017-05-03 12:39:32', '2017-05-04 04:58:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_config_barcode`
+--
+
+CREATE TABLE `store_config_barcode` (
+  `sc_barcode_id` int(11) NOT NULL,
+  `barcode_type` varchar(20) NOT NULL,
+  `barcode_quality` int(3) NOT NULL,
+  `barcode_width` int(4) NOT NULL,
+  `barcode_height` int(11) NOT NULL,
+  `font_family` varchar(20) NOT NULL,
+  `font_size` int(5) NOT NULL,
+  `barcode_content` varchar(20) NOT NULL,
+  `barcode_layout_row_1` varchar(20) NOT NULL,
+  `barcode_layout_row_2` varchar(20) NOT NULL,
+  `barcode_layout_row_3` varchar(20) NOT NULL,
+  `num_in_row` int(3) NOT NULL,
+  `display_page_width` int(3) NOT NULL,
+  `dispaly_page_cellspacing` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `store_config_barcode`
+--
+
+INSERT INTO `store_config_barcode` (`sc_barcode_id`, `barcode_type`, `barcode_quality`, `barcode_width`, `barcode_height`, `font_family`, `font_size`, `barcode_content`, `barcode_layout_row_1`, `barcode_layout_row_2`, `barcode_layout_row_3`, `num_in_row`, `display_page_width`, `dispaly_page_cellspacing`, `created_at`, `updated_at`) VALUES
+(1, 'code39', 200, 200, 10, 'ubuntu', 10, '1', 'row content 1', 'row content 2', 'row content 3', 2, 100, 12, '2017-05-04 06:57:54', '2017-05-04 07:05:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_config_general`
+--
+
+CREATE TABLE `store_config_general` (
+  `sc_general_id` int(11) NOT NULL,
+  `theme` varchar(30) NOT NULL,
+  `tax_one` int(11) NOT NULL,
+  `tax_two` int(11) NOT NULL,
+  `tax_included` enum('Y','N') NOT NULL,
+  `default_sale_discount` int(11) NOT NULL,
+  `calc_aveg_price` enum('Y','N') NOT NULL,
+  `lines_per_page` int(11) NOT NULL,
+  `notification_popup_position_one` varchar(10) NOT NULL,
+  `notification_popup_position_two` varchar(10) NOT NULL,
+  `send_statistic` enum('Y','N') NOT NULL,
+  `custom_field_1` varchar(30) DEFAULT NULL,
+  `custom_field_2` varchar(30) DEFAULT NULL,
+  `custom_field_3` varchar(30) DEFAULT NULL,
+  `custom_field_4` varchar(30) DEFAULT NULL,
+  `custom_field_5` varchar(30) DEFAULT NULL,
+  `custom_field_6` varchar(30) DEFAULT NULL,
+  `custom_field_7` varchar(30) DEFAULT NULL,
+  `custom_field_8` varchar(30) DEFAULT NULL,
+  `custom_field_9` varchar(30) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `store_config_general`
+--
+
+INSERT INTO `store_config_general` (`sc_general_id`, `theme`, `tax_one`, `tax_two`, `tax_included`, `default_sale_discount`, `calc_aveg_price`, `lines_per_page`, `notification_popup_position_one`, `notification_popup_position_two`, `send_statistic`, `custom_field_1`, `custom_field_2`, `custom_field_3`, `custom_field_4`, `custom_field_5`, `custom_field_6`, `custom_field_7`, `custom_field_8`, `custom_field_9`, `created_at`, `updated_at`) VALUES
+(1, 'theme One', 10, 10, 'Y', 10, 'Y', 10, 'top', 'left', 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-05-04 05:57:19', '2017-05-04 05:57:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_config_invoice`
+--
+
+CREATE TABLE `store_config_invoice` (
+  `sc_invoice_id` int(11) NOT NULL,
+  `enable_invoice` enum('Y','N') NOT NULL,
+  `sales_invoice_formate` varchar(20) NOT NULL,
+  `receiving_invoice_formate` varchar(20) NOT NULL,
+  `default_invoice_comments` text NOT NULL,
+  `invoice_email_template` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `store_config_invoice`
+--
+
+INSERT INTO `store_config_invoice` (`sc_invoice_id`, `enable_invoice`, `sales_invoice_formate`, `receiving_invoice_formate`, `default_invoice_comments`, `invoice_email_template`, `created_at`, `updated_at`) VALUES
+(1, 'Y', '$COU', '$CO', 'text', 'text', '2017-05-04 08:39:09', '2017-05-03 20:53:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_config_localisation`
+--
+
+CREATE TABLE `store_config_localisation` (
+  `sc_local_id` int(11) NOT NULL,
+  `localisation` varchar(30) NOT NULL,
+  `thousands_seperator` enum('Y','N') NOT NULL,
+  `currency_symbol` varchar(10) NOT NULL,
+  `currency_decimals` int(2) NOT NULL,
+  `tax_decimals` int(2) NOT NULL,
+  `quantity_decimals` int(2) NOT NULL,
+  `payment_option_order` varchar(50) NOT NULL,
+  `country_code` varchar(10) NOT NULL,
+  `language` varchar(20) NOT NULL,
+  `timezone` varchar(60) NOT NULL,
+  `data_format` varchar(16) NOT NULL,
+  `time_format` varchar(16) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `store_config_localisation`
+--
+
+INSERT INTO `store_config_localisation` (`sc_local_id`, `localisation`, `thousands_seperator`, `currency_symbol`, `currency_decimals`, `tax_decimals`, `quantity_decimals`, `payment_option_order`, `country_code`, `language`, `timezone`, `data_format`, `time_format`, `created_at`, `updated_at`) VALUES
+(1, 'en_US', 'Y', '$', 2, 2, 0, 'Cash / Debit Card / Credit Card', 'us', 'english', '(GMT+05:30) Chennai , Mumbai', 'dd/mm/yyyy', 'hh:mm:ss am/pm', '2017-05-04 06:34:12', '2017-05-04 06:36:38');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_config_mail`
+--
+
+CREATE TABLE `store_config_mail` (
+  `sc_mail_id` int(11) NOT NULL,
+  `protocol` varchar(30) NOT NULL,
+  `path_to_sendmail` varchar(60) NOT NULL,
+  `smpt_server` varchar(60) NOT NULL,
+  `smpt_port` int(6) NOT NULL,
+  `smpt_encryption` varchar(10) NOT NULL,
+  `smpt_timeout` int(5) NOT NULL,
+  `smpt_username` varchar(30) NOT NULL,
+  `smpt_password` varchar(30) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `store_config_mail`
+--
+
+INSERT INTO `store_config_mail` (`sc_mail_id`, `protocol`, `path_to_sendmail`, `smpt_server`, `smpt_port`, `smpt_encryption`, `smpt_timeout`, `smpt_username`, `smpt_password`, `created_at`, `updated_at`) VALUES
+(1, '', '', '', 0, '', 0, '', '', '2017-05-04 08:41:30', '2017-05-03 21:01:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_config_message`
+--
+
+CREATE TABLE `store_config_message` (
+  `sc_message_id` int(11) NOT NULL,
+  `sms_api_username` varchar(30) NOT NULL,
+  `sms_api_password` varchar(30) NOT NULL,
+  `sms_api_sender_id` varchar(20) NOT NULL,
+  `saved_text_message` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `store_config_message`
+--
+
+INSERT INTO `store_config_message` (`sc_message_id`, `sms_api_username`, `sms_api_password`, `sms_api_sender_id`, `saved_text_message`, `created_at`, `updated_at`) VALUES
+(1, 'vpage', 'vpagepassword', 'vpageapi ', 'text', '2017-05-04 08:42:23', '2017-05-04 08:42:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_config_receipt`
+--
+
+CREATE TABLE `store_config_receipt` (
+  `sc_receipt_id` int(11) NOT NULL,
+  `receipt_template` varchar(25) NOT NULL,
+  `show_taxes` enum('Y','N') NOT NULL,
+  `show_desc` enum('Y','N') NOT NULL,
+  `show_sno` enum('Y','N') NOT NULL,
+  `show_print_dialog` enum('Y','N') NOT NULL,
+  `print_browser_header` enum('Y','N') NOT NULL,
+  `print_browser_footer` enum('Y','N') NOT NULL,
+  `ticket_printer` varchar(20) NOT NULL,
+  `invoice_printer` varchar(20) NOT NULL,
+  `takings_printer` varchar(20) NOT NULL,
+  `margin_top` int(4) NOT NULL,
+  `margin_left` int(4) NOT NULL,
+  `margin_bottom` int(4) NOT NULL,
+  `margin_right` int(4) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `store_config_receipt`
+--
+
+INSERT INTO `store_config_receipt` (`sc_receipt_id`, `receipt_template`, `show_taxes`, `show_desc`, `show_sno`, `show_print_dialog`, `print_browser_header`, `print_browser_footer`, `ticket_printer`, `invoice_printer`, `takings_printer`, `margin_top`, `margin_left`, `margin_bottom`, `margin_right`, `created_at`, `updated_at`) VALUES
+(1, 'short ', 'N', 'N', 'N', 'N', 'N', 'N', 'N/A', 'N/A', 'N/A', 0, 0, 0, 0, '2017-05-04 08:21:52', '2017-05-03 20:22:01');
 
 -- --------------------------------------------------------
 
@@ -395,6 +603,48 @@ ALTER TABLE `store_config`
   ADD PRIMARY KEY (`store_config_info_id`);
 
 --
+-- Indexes for table `store_config_barcode`
+--
+ALTER TABLE `store_config_barcode`
+  ADD PRIMARY KEY (`sc_barcode_id`);
+
+--
+-- Indexes for table `store_config_general`
+--
+ALTER TABLE `store_config_general`
+  ADD PRIMARY KEY (`sc_general_id`);
+
+--
+-- Indexes for table `store_config_invoice`
+--
+ALTER TABLE `store_config_invoice`
+  ADD PRIMARY KEY (`sc_invoice_id`);
+
+--
+-- Indexes for table `store_config_localisation`
+--
+ALTER TABLE `store_config_localisation`
+  ADD PRIMARY KEY (`sc_local_id`);
+
+--
+-- Indexes for table `store_config_mail`
+--
+ALTER TABLE `store_config_mail`
+  ADD PRIMARY KEY (`sc_mail_id`);
+
+--
+-- Indexes for table `store_config_message`
+--
+ALTER TABLE `store_config_message`
+  ADD PRIMARY KEY (`sc_message_id`);
+
+--
+-- Indexes for table `store_config_receipt`
+--
+ALTER TABLE `store_config_receipt`
+  ADD PRIMARY KEY (`sc_receipt_id`);
+
+--
 -- Indexes for table `supplier`
 --
 ALTER TABLE `supplier`
@@ -418,17 +668,17 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `employee_login`
 --
 ALTER TABLE `employee_login`
-  MODIFY `employee_login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `employee_login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `employee_permissions`
 --
 ALTER TABLE `employee_permissions`
-  MODIFY `employee_permissions_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `employee_permissions_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `gift_card`
 --
 ALTER TABLE `gift_card`
-  MODIFY `gift_card_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `gift_card_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `items`
 --
@@ -449,6 +699,41 @@ ALTER TABLE `sales`
 --
 ALTER TABLE `store_config`
   MODIFY `store_config_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `store_config_barcode`
+--
+ALTER TABLE `store_config_barcode`
+  MODIFY `sc_barcode_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `store_config_general`
+--
+ALTER TABLE `store_config_general`
+  MODIFY `sc_general_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `store_config_invoice`
+--
+ALTER TABLE `store_config_invoice`
+  MODIFY `sc_invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `store_config_localisation`
+--
+ALTER TABLE `store_config_localisation`
+  MODIFY `sc_local_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `store_config_mail`
+--
+ALTER TABLE `store_config_mail`
+  MODIFY `sc_mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `store_config_message`
+--
+ALTER TABLE `store_config_message`
+  MODIFY `sc_message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `store_config_receipt`
+--
+ALTER TABLE `store_config_receipt`
+  MODIFY `sc_receipt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `supplier`
 --

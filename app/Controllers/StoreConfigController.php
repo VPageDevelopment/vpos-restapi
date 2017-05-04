@@ -28,8 +28,8 @@
 
 
 
-      public function updateStoreConfigInfo($request , $response){
-
+      public function updateStoreConfigInfo($request , $response)
+      {
 
                         $company_name = $request->getParam('company_name') ?? $data['company_name'] ;
                         $company_logo = $request->getParam('company_logo') ?? $data['company_logo'] ;
@@ -55,7 +55,7 @@
                                     'return_policy' => $return_policy,
                                     'updated_at' => $updated_at
                                     ))
-                                    ->from('store_config')
+                                    ->table('store_config')
                                     ->where('store_config_info_id' , '=' ,1);
 
                         $updateStatement->execute();

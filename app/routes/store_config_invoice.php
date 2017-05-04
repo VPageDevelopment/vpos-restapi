@@ -1,0 +1,6 @@
+<?php
+// view all item ...
+$app->get('/api/v1/store-config-invoice/view' ,'StoreConfigInvoiceController:viewStoreConfigInvoice');
+
+// update the store config info ...
+$app->put('/api/v1/store-config-invoice/update' ,'StoreConfigInvoiceController:updateStoreConfigInvoice');

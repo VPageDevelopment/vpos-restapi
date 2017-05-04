@@ -1,0 +1,6 @@
+<?php
+// view all item ...
+$app->get('/api/v1/store-config-receipt/view' ,'StoreConfigReceiptController:viewStoreConfigReceipt');
+
+// update the store config info ...
+$app->put('/api/v1/store-config-receipt/update' ,'StoreConfigReceiptController:updateStoreConfigReceipt');
