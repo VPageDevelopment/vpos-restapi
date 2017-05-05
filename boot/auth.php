@@ -1,17 +1,38 @@
 <?php
 
-use \Slim\Middleware\HttpBasicAuthentication\PdoAuthenticator;
+// fetching the user from the data base ...
 
 
-$pdoAuth = new \PDO('mysql:host=localhost;dbname=vpos;charset=utf8', 'root', '');
+function authUser(){
 
+  $db = pdo();
+  $selectStmt = $db->select()->from('employee_login');
+  $stmt = $selectStmt->execute();
+  $data = $stmt->fetchAll();
 
- $app->add(new \Slim\Middleware\HttpBasicAuthentication([
-      "path" => ["/api"],
-      "passthrough" => ["/api/auth"],
-      "realm" => "Protected",
-      "pdo" => $pdoAuth,
-      "table"=> "",
-      "user"=>"",
-      "hash"=>""
+  $db = null;
+
+    $users = array();
+
+    foreach ($data as $key => $value) {
+        $users[$value['user_name']] = $value['password'];
+    }
+
+    return $users;
+
+};
+
+// auth Middleware..
+
+$app->add(new \Slim\Middleware\HttpBasicAuthentication([
+    "path" => "/api",
+    "realm" => "Protected",
+    "users" => authUser(),
+
+    "error" => function ($request, $response, $arguments) {
+        $data = [];
+        $data["status"] = "error";
+        $data["message"] = $arguments["message"];
+        return $response->write(json_encode($data, JSON_UNESCAPED_SLASHES));
+    }
 ]));
