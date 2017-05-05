@@ -84,7 +84,7 @@
         $total = $request->getParam('total');
         $discount = $request->getParam('discount');
         $taxable = $request->getParam('taxable');
-        
+
 
         // create a new instance of slim\pdo by calling the pdo ...
         $db = pdo();
@@ -109,7 +109,7 @@
         if($insertStatment->execute()){
             return $response->withHeader('Content-Type' , 'application/json')
                       ->withJson([
-                          'code' => '200',
+                          'code' => '201',
                           'message' => ' New Customer created successfully .']);
         }else{
           return $response->withHeader('Content-Type' , 'application/json')
@@ -268,7 +268,7 @@
 
                 return $response->withHeader('Content-Type' , 'application/json')
                         ->withJson([
-                                'code' => '200',
+                                'code' => '204',
                                 'message' => ' customer deleted successfully .']);
 
         }// /md: delete the customer ...

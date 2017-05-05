@@ -67,7 +67,7 @@
 
                         return $response->withHeader('Content-Type' , 'application/json')
                                     ->withJson([
-                                        'code' => '200',
+                                        'code' => '204',
                                         'message' => ' Record updated  successfully .']);
 
       }// /md: updateItemKit

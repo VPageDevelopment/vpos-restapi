@@ -97,7 +97,7 @@
                 if($insertStatment->execute()){
                     return $response->withHeader('Content-Type' , 'application/json')
                             ->withJson([
-                                'code' => '200',
+                                'code' => '201',
                                 'message' => ' New supplier created successfully .']);
                 }else{
                 return $response->withHeader('Content-Type' , 'application/json')
@@ -231,7 +231,7 @@
                 $db = null;
                 return $response->withHeader('Content-Type' , 'application/json')
                         ->withJson([
-                                'code' => '200',
+                                'code' => '204',
                                 'message' => ' supplier deleted successfully .']);
         }// /md: delete the supplier ...
 

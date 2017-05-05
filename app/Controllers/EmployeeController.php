@@ -96,7 +96,7 @@
         if($insertStatment->execute()){
             return $response->withHeader('Content-Type' , 'application/json')
                       ->withJson([
-                          'code' => '200',
+                          'code' => '201',
                           'message' => ' New Employee created successfully .']);
         }else{
           return $response->withHeader('Content-Type' , 'application/json')
@@ -234,7 +234,7 @@
 
                 return $response->withHeader('Content-Type' , 'application/json')
                         ->withJson([
-                                'code' => '200',
+                                'code' => '204',
                                 'message' => ' employee deleted successfully .']);
 
         }// /md: delete the customer ...

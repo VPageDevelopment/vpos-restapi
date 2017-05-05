@@ -98,7 +98,7 @@
                     if($insertStatment->execute()){
                         return $response->withHeader('Content-Type' , 'application/json')
                                   ->withJson([
-                                      'code' => '200',
+                                      'code' => '201',
                                       'message' => ' New Customer created successfully .']);
                     }else{
                       return $response->withHeader('Content-Type' , 'application/json')
@@ -233,7 +233,7 @@
 
                return $response->withHeader('Content-Type' , 'application/json')
                        ->withJson([
-                               'code' => '200',
+                               'code' => '204',
                                'message' => ' record deleted successfully .']);
        }// /md: delete the itemKit ...
 

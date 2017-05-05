@@ -81,7 +81,7 @@ class SaleController
             if($insertStatment->execute()){
                 return $response->withHeader('Content-Type' , 'application/json')
                         ->withJson([
-                            'code' => '200',
+                            'code' => '201',
                             'message' => ' New supplier created successfully .']);
             }else{
             return $response->withHeader('Content-Type' , 'application/json')
@@ -142,7 +142,7 @@ class SaleController
                           'change_due' => $change_due,
                           'type' => $type,
                           'invoice' => $invoice,
-                          'updated_at' => $updated_at 
+                          'updated_at' => $updated_at
 
                           ))
                           ->table('sales')
@@ -186,7 +186,7 @@ class SaleController
                   $db = null;
                   return $response->withHeader('Content-Type' , 'application/json')
                           ->withJson([
-                                  'code' => '200',
+                                  'code' => '204',
                                   'message' => ' supplier deleted successfully .']);
           }// /md: deleteSales ...
 

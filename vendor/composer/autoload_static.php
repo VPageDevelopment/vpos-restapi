@@ -14,6 +14,7 @@ class ComposerStaticInitb3d0ec829ed09e305f733976f51758bc
         'S' => 
         array (
             'Slim\\PDO\\' => 9,
+            'Slim\\Middleware\\' => 16,
             'Slim\\' => 5,
         ),
         'P' => 
@@ -39,6 +40,10 @@ class ComposerStaticInitb3d0ec829ed09e305f733976f51758bc
         'Slim\\PDO\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/pdo/src/PDO',
+        ),
+        'Slim\\Middleware\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tuupola/slim-basic-auth/src',
         ),
         'Slim\\' => 
         array (

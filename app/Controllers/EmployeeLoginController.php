@@ -217,7 +217,7 @@
 
                 return $response->withHeader('Content-Type' , 'application/json')
                         ->withJson([
-                                'code' => '200',
+                                'code' => '204',
                                 'message' => ' employee deleted successfully .']);
 
         }// /md: delete the customer ...

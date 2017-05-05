@@ -5,7 +5,7 @@
 
 
 function pdo(){
-  $dsn = 'mysql:host=localhost;dbname=vposs;charset=utf8';
+  $dsn = 'mysql:host=localhost;dbname=vpos;charset=utf8';
   $usr = 'root';
   $pwd = '';
 
