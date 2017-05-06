@@ -1,9 +1,7 @@
 <?php
 
 // fetching the user from the data base ...
-
-
-function authUser(){
+function getUsers(){
 
   $db = pdo();
   $selectStmt = $db->select()->from('employee_login');
@@ -22,13 +20,14 @@ function authUser(){
 
 };
 
+
+
 // auth Middleware..
 
 $app->add(new \Slim\Middleware\HttpBasicAuthentication([
     "path" => "/api",
     "realm" => "Protected",
-    "users" => authUser(),
-
+    "users" => getUsers(),
     "error" => function ($request, $response, $arguments) {
         $data = [];
         $data["status"] = "error";

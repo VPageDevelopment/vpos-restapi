@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 04, 2017 at 11:16 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 7.0.13
+-- Host: localhost
+-- Generation Time: May 06, 2017 at 06:55 AM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `vposs`
+-- Database: `vpos`
 --
 
 -- --------------------------------------------------------
@@ -109,7 +109,8 @@ CREATE TABLE `employee_login` (
 --
 
 INSERT INTO `employee_login` (`employee_login_id`, `employee_fk`, `user_name`, `password`, `created_at`, `updated_at`) VALUES
-(1, 2, 'admin', 'password', '2017-05-03 10:11:37', '2017-05-03 10:11:37');
+(1, 2, 'admin', '$2y$10$gedhMvDU5DpqCjrRATJyYeNokSyoaDoSgDGw48f4PxjDWMClYm39W', '2017-05-03 10:11:37', '2017-05-03 10:11:37'),
+(2, 4, 'emp1', '$2y$10$W8L1CYXHM2HDmTnUIdvBVOUrWPqEUGznQ1.Yn5A62JMNlHbIuXOvq', '2017-05-05 12:26:29', '2017-05-05 12:26:29');
 
 -- --------------------------------------------------------
 
@@ -668,7 +669,7 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `employee_login`
 --
 ALTER TABLE `employee_login`
-  MODIFY `employee_login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `employee_login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `employee_permissions`
 --
