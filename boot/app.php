@@ -4,8 +4,9 @@
 
     $app = new \Slim\App([
       "settings" =>[
-        'determineRouteBeforeAppMiddleware' => false,
-        'displayErrorDetails' => true,
+            'determineRouteBeforeAppMiddleware' => true,
+            'displayErrorDetails' => true,
+            'addContentLengthHeader' => false,
       ],
     ]);
 

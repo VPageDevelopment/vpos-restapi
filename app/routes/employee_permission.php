@@ -3,7 +3,7 @@
   // employee routes ..
 
   // view all employee ...
-  $app->get('/api/v1/employees-permission' ,'EmployeePermissionController:showEmployeesPermission');
+  $app->get('/api/v1/employees-permissions' ,'EmployeePermissionController:showEmployeesPermission');
 
   // view single employee ...
   $app->get('/api/v1/employee-permission/{id}' ,'EmployeePermissionController:showEmployeePermission');

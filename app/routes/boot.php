@@ -1,5 +1,8 @@
 <?php
 
+    //auth ...
+    require __DIR__ . '/./auth.php';
+
     // customer
     require __DIR__ . '/./customer.php';
     // item
