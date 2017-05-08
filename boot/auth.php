@@ -2,9 +2,12 @@
 
 // fetching the user from the data base ...
 
+
+
+
 function getUsers(){
   $db = pdo();
-  $selectStmt = $db->select()->from('employee_login');
+  $selectStmt = $db->select(['user_name' , 'password'])->from('employee_login');
   $stmt = $selectStmt->execute();
   $data = $stmt->fetchAll();
   $db = null;
@@ -14,6 +17,8 @@ function getUsers(){
     }
     return $users;
 };
+
+
 
 // auth Middleware..
 
