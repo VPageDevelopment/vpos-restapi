@@ -25,5 +25,6 @@ function getUsers(){
 $app->add(new \Slim\Middleware\HttpBasicAuthentication([
     "path" =>  ["/auth", "/api"],
     "realm" => "Protected",
+    "secure" => false,
     "users" => getUsers()
 ]));
