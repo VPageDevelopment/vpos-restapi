@@ -187,7 +187,7 @@
 
          $updateStatement->execute();
 
-        $db = null;
+         $db = null;
 
             return $response->withHeader('Content-Type' , 'application/json')
                       ->withJson([
