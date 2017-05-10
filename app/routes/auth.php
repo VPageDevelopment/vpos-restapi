@@ -19,7 +19,6 @@ use \Psr\Http\Message\{
   $app->get('/auth',function($request , $response){
 
     $auth_username = $_SERVER['PHP_AUTH_USER'];
-
     return $response
                 ->withHeader('Content-Type' , 'application/json')
                 ->withJson([

@@ -1,10 +1,6 @@
 <?php
 
 // fetching the user from the data base ...
-
-
-
-
 function getUsers(){
   $db = pdo();
   $selectStmt = $db->select(['user_name' , 'password'])->from('employee_login');
@@ -17,8 +13,6 @@ function getUsers(){
     }
     return $users;
 };
-
-
 
 // auth Middleware..
 

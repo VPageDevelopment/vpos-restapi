@@ -2,15 +2,12 @@
 
   namespace App\Controllers;
 
-  use \Psr\Http\Message\{
-      ServerRequestInterface as Request ,
-      ResponseInterface as Response };
 
   class EmployeeLoginController
   {
 
     //  show all customer ...
-    public function showEmployeesLogin( Request $request , Response $response)
+    public function showEmployeesLogin($request ,$response)
     {
         // calling the pdo function to create a new instance of pdo ...
         $db = pdo();
@@ -60,20 +57,33 @@
 
 
     // create new customers
-    public function addEmployeeLogin(Request $request , Response $response){
+    public function addEmployeeLogin($request,$response){
+
         $employee_fk = $request->getParam('employee_fk');
         $user_name = $request->getParam('user_name');
         $password = $request->getParam('password');
 
         $hashPassword = hashPassword($password);
 
-        // create a new instance of slim\pdo by calling the pdo ...
         $db = pdo();
 
 
         // to the check the credentials is already is created ....
+        $userStatament = $db->select()
+                                    ->from('employee_login')
+                                    ->where('user_name' , '=' , $user_name);
+
+        $user = $userStatament->execute();
+        $isUserNameExist = $user->fetch();
+        if($isUserNameExist != null){
+          return $response->withHeader('Content-Type' , 'application/json')
+                    ->withJson([
+                        'code' => '200',
+                        'message' => 'Username is already taken . New someother name..']);
+        }
 
 
+        // to the check the credentials is already is created ....
         $selectStatament = $db->select()
                                     ->from('employee_login')
                                     ->where('employee_fk' , '=' , $employee_fk);
@@ -81,16 +91,12 @@
         $stmt = $selectStatament->execute();
         $isCrendentialExist = $stmt->fetch();
 
-        // to check the employee already has the crendentials ....
-
-
         if($isCrendentialExist != null){
           return $response->withHeader('Content-Type' , 'application/json')
                     ->withJson([
                         'code' => '200',
                         'message' => ' The credentials  for this employee is already exist.']);
         }
-
 
 
         // insert into customer table
@@ -121,7 +127,7 @@
 
     // update the
 
-    public function updateEmployeeLogin (Request $request , Response $response , $arg) {
+    public function updateEmployeeLogin ($request, $response, $arg) {
 
        $employee_fk = $arg['id'];
 
@@ -182,7 +188,7 @@
     } // /md: updateCustomer
 
     // delete customer ...
-    public function deleteEmployeeLogin(Request $request , Response $response , $arg){
+    public function deleteEmployeeLogin($request, $response, $arg){
 
                 $employee_fk = $arg['id'];
 
@@ -201,8 +207,8 @@
                 // check the user is exist or not ...
 
                 if($data == null){
-
                         return $response->withHeader('Content-Type','application/json')
+
                         ->withJson([
                         "code" => "404",
                         "message" => "No valid user found"]);

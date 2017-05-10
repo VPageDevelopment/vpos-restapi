@@ -3,16 +3,12 @@
   namespace App\Controllers;
 
   class itemController {
-
-
       public function showItems($request , $response){
                 $db = pdo();
                 $selectItems = $db->select()->from('items');
                 $stmt = $selectItems->execute();
                 $data = $stmt->fetchAll();
                 $db = null;
-
-
 
                 if($data != null){
                 return $response->withHeader('Content-Type' , 'application/json')
