@@ -1,16 +1,10 @@
 <?php
 
   namespace App\Controllers;
-
-  use \Psr\Http\Message\{
-      ServerRequestInterface as Request ,
-      ResponseInterface as Response };
-
   class CustomerController
   {
-
     //  show all customer ...
-    public function showCustomers( Request $request , Response $response)
+    public function showCustomers($request , $response)
     {
         // calling the pdo function to create a new instance of pdo ...
         $db = pdo();
@@ -65,7 +59,7 @@
 
 
     // create new customers
-    public function addCustomer(Request $request , Response $response){
+    public function addCustomer($request , $response){
 
         $first_name = $request->getParam('first_name');
         $last_name = $request->getParam('last_name');
@@ -123,7 +117,7 @@
 
     // update the
 
-    public function updateCustomer (Request $request , Response $response , $arg) {
+    public function updateCustomer ($request ,$response , $arg) {
        $customer_id = $arg['id'];
        $db = pdo();
 
@@ -227,7 +221,7 @@
     } // /md: updateCustomer
 
     // delete customer ...
-    public function deleteCustomer(Request $request , Response $response , $arg){
+    public function deleteCustomer($request , $response , $arg){
 
                 $customer_id = $arg['id'];
 
