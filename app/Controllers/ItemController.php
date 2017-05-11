@@ -66,10 +66,29 @@
                     $quantity_stock = $request->getParam('quantity_stock');
                     $receiving_quantity = $request->getParam('receiving_quantity');
                     $description = $request->getParam('description');
-                    $avatar = $request->getParam('avatar');
                     $allow_alt_description = $request->getParam('allow_alt_description');
                     $item_has_serial_number = $request->getParam('item_has_serial_number');
                     $deleted = $request->getParam('deleted');
+
+                    $avatar = $request->getUploadedFiles()['avatar'];
+
+                    $upload_path = __DIR__."/../uploads/images/";
+
+                    $uploadFileName = $avatar->getClientFilename();
+
+                    $full_img_path = $upload_path.$uploadFileName ;
+
+                    if(empty($avatar)){
+                        return $response->withHeader('Content-Type', 'application/json')
+                                        ->withJson([
+                                          'code' => '404',
+                                          'message' => 'Expected a item avatar'
+                                        ]);
+                    }
+
+                    if($avatar->getError() === UPLOAD_ERR_OK) $avatar->moveTo($full_img_path);
+
+                    // die();
 
                     // create a new instance of slim\pdo by calling the pdo ...
                     $db = pdo();
@@ -85,7 +104,7 @@
                     ->values(array(
                       $upc_ean_isbn , $item_name , $category , $supplier_fk ,
                       $cost_price , $retail_price , $tax_one ,
-                      $tax_two , $quantity_stock , $receiving_quantity , $description , $avatar ,
+                      $tax_two , $quantity_stock , $receiving_quantity , $description , $full_img_path,
                       $allow_alt_description , $item_has_serial_number , $deleted
                     ));
 
