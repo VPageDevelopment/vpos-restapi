@@ -14,7 +14,7 @@
   // $app->post('/api/v1/items/upload' , 'ItemController:uploadFile');
 
   // update existing item ...
-  $app->put('/api/v1/item/update/{id}' ,'ItemController:updateItem');
+  $app->post('/api/v1/item/update/{id}' ,'ItemController:updateItem');
 
 
   // //delte existing item ....

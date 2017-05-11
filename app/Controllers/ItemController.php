@@ -152,8 +152,9 @@
                                return $response->withHeader('Content-Type','application/json')
                                ->withJson([
                                "code" => "404",
-                               "message" => "No valid user found"]);
+                               "message" => "No valid item found"]);
                        };
+
                        $upc_ean_isbn = $request->getParam('upc_ean_isbn') ?? $data['upc_ean_isbn'] ;
                        $item_name = $request->getParam('item_name') ?? $data['item_name'] ;
                        $category = $request->getParam('category') ?? $data['category'] ;
@@ -165,10 +166,33 @@
                        $quantity_stock = $request->getParam('quantity_stock') ?? $data['quantity_stock'] ;
                        $receiving_quantity = $request->getParam('receiving_quantity') ?? $data['receiving_quantity'] ;
                        $description = $request->getParam('description') ?? $data['description'] ;
-                       $avatar = $request->getParam('avatar') ?? $data['avatar'] ;
                        $allow_alt_description = $request->getParam('allow_alt_description') ?? $data['allow_alt_description'] ;
                        $item_has_serial_number = $request->getParam('item_has_serial_number') ?? $data['item_has_serial_number'] ;
                        $deleted = $request->getParam('deleted') ?? $data['deleted'];
+
+
+                       $avatar = $request->getUploadedFiles()['avatar'];
+
+                       var_dump($avatar);
+                       die();
+
+
+                       if($avatar != null){
+
+                         $upload_path = __DIR__."/../uploads/images/";
+
+                         $uploadFileName = $avatar->getClientFilename();
+
+                         $full_img_path = $upload_path.$uploadFileName ;
+
+
+                         if($avatar->getError() === UPLOAD_ERR_OK) $avatar->moveTo($full_img_path);
+
+                       }else{
+                         $full_img_path = $data['avatar'];
+                       }
+
+
 
 
                        $updated_at = getUpdateTime();
@@ -187,7 +211,7 @@
                                    'quantity_stock' => $quantity_stock,
                                    'receiving_quantity' => $receiving_quantity,
                                    'description' => $description,
-                                   'avatar' => $avatar,
+                                   'avatar' => $full_img_path,
                                    'allow_alt_description' => $allow_alt_description,
                                    'item_has_serial_number' => $item_has_serial_number,
                                    'deleted' => $deleted,
@@ -205,7 +229,7 @@
                            return $response->withHeader('Content-Type' , 'application/json')
                                    ->withJson([
                                        'code' => '200',
-                                       'message' => ' updated item kit record successfully .']);
+                                       'message' => ' updated item record successfully .']);
 
      }// /md: updateItemKit
 
