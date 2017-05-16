@@ -76,6 +76,12 @@
 
                     $uploadFileName = $avatar->getClientFilename();
 
+                    //uploaded image size
+                    $uploadedImageSize = $avatar->getSize();
+
+                    //uploade media type
+                    $uploadeImageMediaType = $avatar->getClientMediaType();
+
                     $full_img_path = $upload_path.$uploadFileName ;
 
                     if(empty($avatar)){
@@ -86,7 +92,30 @@
                                         ]);
                     }
 
-                    if($avatar->getError() === UPLOAD_ERR_OK) $avatar->moveTo($full_img_path);
+                    // image validations...
+
+                    if(in_array($uploadedImageMediaType, array('jpg','png','png'))){
+                        //  chech the image size less than 5M
+                        if($uploadedImageSize < 5000000){
+                            if($avatar->getError() === UPLOAD_ERR_OK) $avatar->moveTo($full_img_path);
+                        }else{
+                            return $response->withHeader('Content-Type', 'application/json')
+                                        ->withJson([
+                                          'code' => '503',
+                                          'message' =>'uploaded image size is too big.'
+                                        ]);
+
+                        }
+                    }else{
+                            return $response->withHeader('Content-Type', 'application/json')
+                                        ->withJson([
+                                          'code' => '503',
+                                          'message' =>'uploaded image media type must be jpg or jpeg or png.'
+                                        ]);
+
+                        }
+
+
 
                     // die();
 
@@ -173,20 +202,45 @@
 
                        $avatar = $request->getUploadedFiles()['avatar'];
 
-                       var_dump($avatar);
-                       die();
-
 
                        if($avatar != null){
+                            $upload_path = __DIR__."/../uploads/images/";
 
-                         $upload_path = __DIR__."/../uploads/images/";
+                            $uploadFileName = $avatar->getClientFilename();
 
-                         $uploadFileName = $avatar->getClientFilename();
+                            //uploaded image size
+                            $uploadedImageSize = $avatar->getSize();
 
-                         $full_img_path = $upload_path.$uploadFileName ;
+                            //uploade media type
+                            $uploadeImageMediaType = $avatar->getClientMediaType();
 
+                            $full_img_path = $upload_path.$uploadFileName ;
 
-                         if($avatar->getError() === UPLOAD_ERR_OK) $avatar->moveTo($full_img_path);
+                           // image validations...
+
+                            if(in_array($uploadedImageMediaType, array('jpg','png','png'))){
+                                //  chech the image size less than 5M
+                                if($uploadedImageSize < 5000000){
+
+                                    unlink($full_img_path);
+                                    if($avatar->getError() === UPLOAD_ERR_OK) $avatar->moveTo($full_img_path);
+                                }else{
+                                    return $response->withHeader('Content-Type', 'application/json')
+                                                ->withJson([
+                                                  'code' => '503',
+                                                  'message' =>'uploaded image size is too big.'
+                                                ]);
+
+                                }
+                            }else{
+                                    return $response->withHeader('Content-Type', 'application/json')
+                                                ->withJson([
+                                                  'code' => '503',
+                                                  'message' =>'uploaded image media type must be jpg or jpeg or png.'
+                                                ]);
+
+                                }
+
 
                        }else{
                          $full_img_path = $data['avatar'];

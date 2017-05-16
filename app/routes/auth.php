@@ -16,7 +16,7 @@ use \Psr\Http\Message\{
   };
 
 
-  $app->get('/auth',function($request , $response){
+  $app->post('/auth',function($request , $response){
 
     $auth_username = $_SERVER['PHP_AUTH_USER'];
     return $response
