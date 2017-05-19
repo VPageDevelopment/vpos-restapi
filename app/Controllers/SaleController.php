@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 class SaleController
 {
-        public function showSales ( $request , $response){
+        public function showSales($request,$response){
             $db = pdo();
             $selectStatement = $db->select()->from('sales');
             $stmt = $selectStatement->execute();
@@ -25,7 +25,7 @@ class SaleController
         } // md:showSales ...
 
 
-        public function showSale($request , $response , $arg){
+        public function showSale($request ,$responsei ,$arg){
           $sales_id = $arg['id'] ;
           $db = pdo();
           $selectStatement = $db->select()->from('sales')
@@ -47,7 +47,7 @@ class SaleController
         }// md:showSale ...
 
 
-        public function addSales($request , $response ){
+        public function addSales($request, $response){
 
             $customer_fk = $request->getParam('customer_fk');
             $item_fk = $request->getParam('item_fk');
@@ -58,7 +58,6 @@ class SaleController
             $invoice = $request->getParam('invoice');
 
             $db = pdo();
-
 
             // insert into supplier table
             $insertStatment = $db->insert(array(
@@ -94,7 +93,7 @@ class SaleController
         } // md:addSales
 
 
-        public function updateSale($request , $response , $arg){
+        public function updateSale($request, $response, $arg){
           $sales_id = $arg['id'];
           $db = pdo();
 
@@ -114,10 +113,12 @@ class SaleController
 
               if($data == null){
 
-                      return $response->withHeader('Content-Type','application/json')
+                      $response->withHeader('Content-Type','application/json')
                       ->withJson([
                       "code" => "404",
                       "message" => "No valid record found"]);
+
+                      return $response;
               };
 
 
@@ -189,9 +190,6 @@ class SaleController
                                   'code' => '204',
                                   'message' => ' supplier deleted successfully .']);
           }// /md: deleteSales ...
-
-
-
 
 
 } // /ctrl:SaleCtrl

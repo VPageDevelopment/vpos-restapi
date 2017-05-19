@@ -53,7 +53,7 @@
       } // /md:showItem
 
 
-      public function addItem($request , $response){
+      public function addItem($request, $response){
 
                     $upc_ean_isbn = $request->getParam('upc_ean_isbn');
                     $item_name = $request->getParam('item_name');
