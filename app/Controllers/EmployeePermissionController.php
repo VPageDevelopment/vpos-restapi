@@ -19,13 +19,19 @@
         $db = null;
 
         if($data != null){
-        return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson(["Employees Permissions" => $data]);
+            return $response
+                       ->withHeader('Content-Type' , 'application/json')
+                       ->withJson([
+                           "status" => "true",
+                           "status-code" => "200",
+                           "Employees Permissions" => $data]);
       } else {
 
-        return $response->withHeader('Content-Type','application/json')
-                        ->withJson([
-                                    "code" => "404",
+            return $response
+                       ->withHeader('Content-Type','application/json')
+                       ->withJson([
+                                    "status" => "false",
+                                    "status-code" => "404",
                                     "message" => "No records found"
                                   ]);
 
@@ -46,13 +52,20 @@
       $db = null;
 
       if($data != null){
-            return $response->withJson([" Employee Permission " => $data ]);
+          return $response
+                     ->withHeader('Content-Type', 'application/json')
+                     ->withJson([
+                         "status" => "true",
+                         "status-code" => "200",
+                         "Employee Permission " => $data ]);
       }else{
 
-        return $response->withHeader('Content-Type','application/json')
-        ->withJson([
-          "code" => "404",
-          "message" => "No valid user found"]);
+            return $response
+                       ->withHeader('Content-Type','application/json')
+                       ->withJson([
+                            "status" => "false",
+                            "status-code" => "404",
+                            "message" => "No valid user found"]);
 
       } // /stmt. else
 
@@ -61,7 +74,6 @@
 
     // create new customers
     public function addEmployeePermission(Request $request , Response $response){
-
 
         $employee_fk = $request->getParam('employee_fk');
         $customer = $request->getParam('customer');
@@ -91,31 +103,25 @@
 
 
 
-
         // create a new instance of slim\pdo by calling the pdo ...
         $db = pdo();
-
-
         // to the check the credentials is already is created ....
-
-
         $selectStatament = $db->select()
                                     ->from('employee_permissions')
                                     ->where('employee_fk' , '=' , $employee_fk);
-
         $stmt = $selectStatament->execute();
         $isPermisssionExist = $stmt->fetch();
 
         // to check the employee already has the crendentials ....
 
-
         if($isPermisssionExist != null){
-          return $response->withHeader('Content-Type' , 'application/json')
-                    ->withJson([
-                        'code' => '200',
-                        'message' => ' The Permission  for this employee is already exist.']);
+            return $response
+                       ->withHeader('Content-Type' , 'application/json')
+                       ->withJson([
+                             'status' => 'false',
+                             'status-code' => '300',
+                             'message' => ' The Permission  for this employee is already exist.']);
         }
-
 
 
         // insert into customer table
@@ -142,15 +148,19 @@
         $insertStatment->execute();
 
         if($insertStatment->execute()){
-            return $response->withHeader('Content-Type' , 'application/json')
-                      ->withJson([
-                          'code' => '201',
-                          'message' => ' New employee permissions is created successfully .']);
+            return $response
+                       ->withHeader('Content-Type' , 'application/json')
+                       ->withJson([
+                           'status' => 'true',
+                           'status-code' => '201',
+                           'message' => ' New employee permissions is created successfully .']);
         }else{
-          return $response->withHeader('Content-Type' , 'application/json')
-                    ->withJson([
-                      'code' => '500',
-                      'message' => 'Sorry Error Occurs ..']);
+            return $response
+                        ->withHeader('Content-Type' , 'application/json')
+                        ->withJson([
+                            'status' => 'false',
+                            'status-code' => '500',
+                            'message' => 'Sorry Error Occurs ..']);
         };
 
 
@@ -179,10 +189,12 @@
         // check the is already exist or not ...$_COOKIE
         if( $data == null ){
 
-                return $response->withHeader('Content-Type','application/json')
-                ->withJson([
-                "code" => "404",
-                "message" => "No valid employee found"]);
+            return $response
+                       ->withHeader('Content-Type','application/json')
+                       ->withJson([
+                            "status" => "false",
+                            "status-code" => "404",
+                            "message" => "No valid employee found"]);
          };
 
 
@@ -275,9 +287,11 @@
 
         $db = null;
 
-        return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson([
-                          'code' => '200',
+        return $response
+                    ->withHeader('Content-Type' , 'application/json')
+                    ->withJson([
+                          'status' => 'true',
+                          'status-code' => '200',
                           'message' => ' updated records successfully .'
                         ]);
 
@@ -305,10 +319,12 @@
                 // check the user is exist or not ...
 
                 if($data == null){
-                        return $response->withHeader('Content-Type','application/json')
-                        ->withJson([
-                        "code" => "404",
-                        "message" => "No valid records found"]);
+                    return $response
+                               ->withHeader('Content-Type','application/json')
+                               ->withJson([
+                                    "status" => "false",
+                                    "status-code" => "404",
+                                    "message" => "No valid records found"]);
                 };
 
                 $deleteCustomer = $db->delete()
@@ -318,9 +334,11 @@
                 $delete = $deleteCustomer->execute();
                 $db = null;
 
-                return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson([
-                                'code' => '204',
+                return $response
+                           ->withHeader('Content-Type' , 'application/json')
+                           ->withJson([
+                                'status' => 'true',
+                                'status-code' => '204',
                                 'message' => ' employee deleted successfully .']);
 
         }// /md: delete the customer ...

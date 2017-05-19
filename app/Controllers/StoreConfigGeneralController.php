@@ -19,11 +19,12 @@
 
         return $response->withHeader('Content-Type','application/json')
                         ->withJson([
-                                    "code" => "404",
+                                    "status" => "true",
+                                    "status-code" => "404",
                                     "message" => "No records found"
                                   ]);
           }
-      } // /md: showItemKits ..
+      } // /md: showStoreConfigGenerals ..
 
 
 
@@ -54,7 +55,7 @@
 
                         $db = pdo();
 
-                        // update the itemKit ...
+                        // update the StoreConfigGeneral ...
                         $updateStatement = $db->update(array(
                                     'theme ' => $theme  ,
                                     'tax_one' => $tax_one ,
@@ -86,12 +87,13 @@
 
 
                         return $response->withHeader('Content-Type' , 'application/json')
-                                    ->withJson([
-                                        'code' => '204',
-                                        'message' => ' Record updated  successfully .']);
+                                        ->withJson([
+                                            'status' => 'true',
+                                            'status-code' => '204',
+                                            'message' => ' Record updated  successfully .']);
 
-      }// /md: updateItemKit
+      }// /md: updateStoreConfigGeneral
 
 
 
-} // /ctrl:ItemKit
+} // /ctrl:StoreConfigGeneral

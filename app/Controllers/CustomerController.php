@@ -14,14 +14,20 @@
         $db = null;
 
         if($data != null){
-        return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson(["customers" => $data]);
+            return $response
+                        ->withHeader('Content-Type' , 'application/json')
+                        ->withJson([
+                            "status" => "true",
+                            "status-code" => "200",
+                            "customers" => $data
+                        ]);
       } else {
 
-        return $response->withHeader('Content-Type','application/json')
-                        ->withJson([
-                                    "code" => "404",
-                                    "message" => "No records found"
+          return $response
+                    ->withHeader('Content-Type','application/json')
+                    ->withJson([  "status" => "false",
+                                  "status-code" => "404",
+                                  "message" => "No records found"
                                   ]);
 
       } // /stmt. else
@@ -44,14 +50,22 @@
 
       if($data != null){
 
-            return $response->withJson(["message" => $data ]);
+          return $response
+                     ->withHeader('Content-Type', 'application/json')
+                     ->withJson([
+                           "status" => "true",
+                           "customer" => $data,
+                           "status-code" => "200"
+                       ]);
 
       }else{
 
-        return $response->withHeader('Content-Type','application/json')
-        ->withJson([
-          "code" => "404",
-          "message" => "No valid user found"]);
+          return $response
+                     ->withHeader('Content-Type','application/json')
+                     ->withJson([
+                         "status-code" => "404",
+                         "status" => "false",
+                         "message" => "No valid user found.."]);
 
       } // /stmt. else
 
@@ -101,15 +115,20 @@
         $insertStatment->execute();
 
         if($insertStatment->execute()){
-            return $response->withHeader('Content-Type' , 'application/json')
-                      ->withJson([
-                          'code' => '201',
-                          'message' => ' New Customer created successfully .']);
+            return $response
+                       ->withHeader('Content-Type' , 'application/json')
+                       ->withJson([
+                          'status' => 'true',
+                          'status-code' => '201',
+                          'message' => ' New Customer created successfully .'
+                      ]);
         }else{
-          return $response->withHeader('Content-Type' , 'application/json')
-                    ->withJson([
-                      'code' => '500',
-                      'message' => 'Sorry Error Occurs ..']);
+            return $response
+                       ->withHeader('Content-Type' , 'application/json')
+                       ->withJson([
+                           'status' => 'false',
+                           'status-code' => '500',
+                           'message' => 'Sorry Error Occurs ..']);
         }
 
 
@@ -137,10 +156,12 @@
 
         if($data == null){
 
-                return $response->withHeader('Content-Type','application/json')
-                ->withJson([
-                "code" => "404",
-                "message" => "No valid user found"]);
+            return $response
+                        ->withHeader('Content-Type','application/json')
+                        ->withJson([
+                              "status" => "false",
+                              "status-code" => "404",
+                              "message" => "No valid user found"]);
          }
 
         $first_name =
@@ -211,9 +232,11 @@
         $db = null;
 
 
-            return $response->withHeader('Content-Type' , 'application/json')
-                      ->withJson([
-                          'code' => '200',
+        return $response
+                    ->withHeader('Content-Type' , 'application/json')
+                    ->withJson([
+                          'status' => 'true',
+                          'status-code' => '200',
                           'message' => ' update created successfully .']);
 
 
@@ -224,7 +247,6 @@
     public function deleteCustomer($request , $response , $arg){
 
                 $customer_id = $arg['id'];
-
                 $db = pdo();
 
                 // select that particular users
@@ -234,8 +256,6 @@
                 $stmt = $selectStatement
                         ->execute();
 
-
-
                 $data = $stmt
                         ->fetch();
 
@@ -243,10 +263,12 @@
 
                 if($data == null){
 
-                        return $response->withHeader('Content-Type','application/json')
-                        ->withJson([
-                        "code" => "404",
-                        "message" => "No valid user found"]);
+                    return $response
+                                ->withHeader('Content-Type','application/json')
+                                ->withJson([
+                                      "status" => "false",
+                                      "code" => "404",
+                                      "message" => "No valid user found"]);
                 }
 
 
@@ -260,8 +282,10 @@
                 $db = null;
 
 
-                return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson([
+                return $response
+                            ->withHeader('Content-Type' , 'application/json')
+                            ->withJson([
+                                'status' => 'true',
                                 'code' => '204',
                                 'message' => ' customer deleted successfully .']);
 

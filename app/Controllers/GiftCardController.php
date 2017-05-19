@@ -14,12 +14,16 @@
 
      if($data != null){
         return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson(["giftCards" => $data]);
+                        ->withJson([
+                            "status" => "true",
+                            "status-code" => "200",
+                            "giftCards" => $data]);
       } else {
 
         return $response->withHeader('Content-Type','application/json')
                         ->withJson([
-                                    "code" => "404",
+                                    "status" => "false",
+                                    "status-code" => "404",
                                     "message" => "No records found"
                                   ]);
           }
@@ -37,14 +41,16 @@
 
         if($data != null){
 
-                return $response->withJson(["giftCards" => $data ]);
+            return $response->withHeader('Content-Type' , 'application/json')
+                            ->withJson(["giftCards" => $data ]);
 
         }else{
 
             return $response->withHeader('Content-Type','application/json')
-            ->withJson([
-            "code" => "404",
-            "message" => "No valid user found"]);
+                            ->withJson([
+                                 "status" => "false",
+                                 "status-code" => "404",
+                                 "message" => "No valid user found"]);
 
         } // /stmt. else
 
@@ -75,14 +81,16 @@
 
                 if($insertStatment->execute()){
                     return $response->withHeader('Content-Type' , 'application/json')
-                            ->withJson([
-                                'code' => '201',
-                                'message' => ' New Gift Card is  created successfully .']);
+                                    ->withJson([
+                                        'status' => 'true',
+                                        'status-code' => '201',
+                                        'message' => ' New Gift Card is  created successfully .']);
                 }else{
                 return $response->withHeader('Content-Type' , 'application/json')
-                            ->withJson([
-                            'code' => '500',
-                            'message' => 'Sorry Error Occurs ..']);
+                                ->withJson([
+                                    'status' => 'false',
+                                    'status-code' => '500',
+                                    'message' => 'Sorry Error Occurs ..']);
                 }
 
 
@@ -105,9 +113,10 @@
                         // check the is already exist or not ...$_COOKIE
                         if($data == null){
                                 return $response->withHeader('Content-Type','application/json')
-                                ->withJson([
-                                "code" => "404",
-                                "message" => "No valid record found"]);
+                                                ->withJson([
+                                                    "status" => "false",
+                                                    "status-code" => "404",
+                                                    "message" => "No valid record found"]);
                         };
 
                         $gift_card_number = $request->getParam('gift_card_number') ?? $data['gift_card_number'] ;
@@ -134,9 +143,10 @@
 
 
                             return $response->withHeader('Content-Type' , 'application/json')
-                                    ->withJson([
-                                        'code' => '200',
-                                        'message' => ' Record updated  successfully .']);
+                                            ->withJson([
+                                                'status' => 'true',
+                                                'status-code' => '200',
+                                                'message' => 'Record updated successfully.']);
 
       }// /md: updateItemKit
 
@@ -160,9 +170,10 @@
 
                 if($data == null){
                         return $response->withHeader('Content-Type','application/json')
-                        ->withJson([
-                        "code" => "404",
-                        "message" => "No valid record found"]);
+                                        ->withJson([
+                                                "status" => "false",
+                                                "status-code" => "404",
+                                                "message" => "No valid record found"]);
                 }
 
                 $deleteItemKit = $db->delete()
@@ -171,9 +182,10 @@
                 $delete = $deleteItemKit->execute();
                 $db = null;
                 return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson([
-                                'code' => '204',
-                                'message' => ' records deleted successfully .']);
-        }// /md: delete the itemKit ...
+                                ->withJson([
+                                    'status' => 'true',
+                                    'status-code' => '204',
+                                    'message' => ' records deleted successfully .']);
+            }// /md: delete the itemKit ...
 
-} // /ctrl:ItemKit
+} // /ctrl:GiftCardCtrl

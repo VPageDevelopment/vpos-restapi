@@ -15,12 +15,16 @@
 
            if($data != null){
               return $response->withHeader('Content-Type' , 'application/json')
-                              ->withJson(["suppliers" => $data]);
+                              ->withJson([
+                                  "status" => "true",
+                                  "status-code" => "200",
+                                  "suppliers" => $data]);
             } else {
 
               return $response->withHeader('Content-Type','application/json')
                               ->withJson([
-                                          "code" => "404",
+                                          "status" => "false",
+                                          "status-code" => "404",
                                           "message" => "No records found"
                                         ]);
                 }
@@ -41,14 +45,19 @@
 
               if($data != null){
 
-                      return $response->withJson(["message" => $data ]);
+                  return $response->withHeader('Content-Type', 'application/json')
+                                  ->withJson([
+                                      "status" => "true",
+                                      "status-code" => "200",
+                                      "message" => $data ]);
 
               }else{
 
                   return $response->withHeader('Content-Type','application/json')
-                  ->withJson([
-                  "code" => "404",
-                  "message" => "No valid user found"]);
+                                  ->withJson([
+                                      "status"=>"false",
+                                      "status-code" => "404",
+                                      "message" => "No valid user found"]);
 
               } // /stmt. else
 
@@ -96,14 +105,16 @@
 
                 if($insertStatment->execute()){
                     return $response->withHeader('Content-Type' , 'application/json')
-                            ->withJson([
-                                'code' => '201',
-                                'message' => ' New supplier created successfully .']);
+                                    ->withJson([
+                                        'status'=>'true',
+                                        'status-code' => '201',
+                                        'message' => ' New supplier created successfully .']);
                 }else{
                 return $response->withHeader('Content-Type' , 'application/json')
-                            ->withJson([
-                            'code' => '500',
-                            'message' => 'Sorry Error Occurs ..']);
+                                ->withJson([
+                                    'status' => 'false',
+                                    'status-code' => '500',
+                                    'message' => 'Sorry Error Occurs ..']);
                 }
 
       } // /md: addSupplier
@@ -127,10 +138,11 @@
 
                         if($data == null){
                                 return $response->withHeader('Content-Type','application/json')
-                                ->withJson([
-                                "code" => "404",
-                                "message" => "No valid user found"]);
-                        };
+                                                ->withJson([
+                                                    "status" => "false",
+                                                    "status-code" => "404",
+                                                    "message" => "No valid user found"]);
+                                            };
 
 
                         $company_name =
@@ -198,9 +210,10 @@
 
 
                             return $response->withHeader('Content-Type' , 'application/json')
-                                    ->withJson([
-                                        'code' => '200',
-                                        'message' => ' update  supplier  successfully .']);
+                                            ->withJson([
+                                                'status' => 'true',
+                                                'status-code' => '200',
+                                                'message' => ' update  supplier  successfully .']);
 
       }// /md: updateSupplire
 
@@ -219,9 +232,10 @@
                 // check the user is exist or not ...
                 if($data == null){
                         return $response->withHeader('Content-Type','application/json')
-                        ->withJson([
-                        "code" => "404",
-                        "message" => "No valid user found"]);
+                                        ->withJson([
+                                            "status" => "false",
+                                            "status-code" => "404",
+                                            "message" => "No valid user found"]);
                 }
                 $deleteSupplier = $db->delete()
                                         ->from('supplier')
@@ -230,9 +244,10 @@
 
                 $db = null;
                 return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson([
-                                'code' => '204',
-                                'message' => ' supplier deleted successfully .']);
+                                ->withJson([
+                                        'status' => 'true',
+                                        'status-code' => '204',
+                                        'message' => ' supplier deleted successfully .']);
         }// /md: delete the supplier ...
 
 } // /ctrl:Supplier

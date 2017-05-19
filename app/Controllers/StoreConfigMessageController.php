@@ -14,16 +14,20 @@
 
      if($data != null){
         return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson(["Store Config Message" => $data]);
+                        ->withJson([
+                            "status" => "true",
+                            "status-code" => "200",
+                            "Store Config Message" => $data]);
       } else {
 
         return $response->withHeader('Content-Type','application/json')
                         ->withJson([
-                                    "code" => "404",
+                                    "status" => "false",
+                                    "status-code" => "404",
                                     "message" => "No records found"
                                   ]);
           }
-      } // /md: showItemKits ..
+      } // /md: showStoreConfigMails ..
 
       public function updateStoreConfigMessage($request , $response)
       {
@@ -46,7 +50,7 @@
 
                         $db = pdo();
 
-                        // update the itemKit ...
+                        // update the StoreConfigMessage ...
                         $updateStatement = $db->update(array(
                                     'receipt_template ' => $receipt_template  ,
                                     'show_taxes' => $show_taxes ,
@@ -73,12 +77,13 @@
 
 
                         return $response->withHeader('Content-Type' , 'application/json')
-                                    ->withJson([
-                                        'code' => '204',
-                                        'message' => ' Record updated  successfully .']);
+                                        ->withJson([
+                                            'status' => 'true',
+                                            'status-code' => '204',
+                                            'message' => ' Record updated  successfully .']);
 
-      }// /md: updateItemKit
+      }// /md: updateStoreConfigMail
 
 
 
-} // /ctrl:ItemKit
+} // /ctrl:StoreConfigMail

@@ -14,16 +14,20 @@
 
      if($data != null){
         return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson(["Store Config Receipt" => $data]);
+                        ->withJson([
+                            "status" => "true",
+                            "status-code" => "200",
+                            "Store Config Receipt" => $data]);
       } else {
 
         return $response->withHeader('Content-Type','application/json')
                         ->withJson([
-                                    "code" => "404",
+                                    "status" => "false",
+                                    "status-code" => "404",
                                     "message" => "No records found"
                                   ]);
           }
-      } // /md: showItemKits ..
+      } // /md: showStoreConfigReceipts ..
 
 
 
@@ -49,7 +53,7 @@
 
                         $db = pdo();
 
-                        // update the itemKit ...
+                        // update the StoreConfigReceipt ...
                         $updateStatement = $db->update(array(
                                     'receipt_template ' => $receipt_template  ,
                                     'show_taxes' => $show_taxes ,
@@ -76,12 +80,13 @@
 
 
                         return $response->withHeader('Content-Type' , 'application/json')
-                                    ->withJson([
-                                        'code' => '204',
-                                        'message' => ' Record updated  successfully .']);
+                                        ->withJson([
+                                            'status' => 'true',
+                                            'status-code' => '204',
+                                            'message' => ' Record updated  successfully .']);
 
-      }// /md: updateItemKit
+      }// /md: updateStoreConfigReceipt
 
 
 
-} // /ctrl:ItemKit
+} // /ctrl:StoreConfigReceipt

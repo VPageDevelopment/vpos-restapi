@@ -11,14 +11,20 @@
                 $db = null;
 
                 if($data != null){
-                return $response->withHeader('Content-Type' , 'application/json')
-                                ->withJson(["items" => $data]);
+                    return $response
+                        ->withHeader('Content-Type' , 'application/json')
+                        ->withJson([
+                            "items" => $data,
+                            "status-code" => "200",
+                            "status" => "true",
+                        ]);
             } else {
 
                 return $response->withHeader('Content-Type','application/json')
                                 ->withJson([
-                                            "code" => "404",
-                                            "message" => "No records found"
+                                            "status-code" => "404",
+                                            "message" => "No records found",
+                                            "status" => "false"
                                         ]);
 
             } // /stmt. else
@@ -40,17 +46,26 @@
 
             if($data != null){
 
-                    return $response->withJson(["message" => $data ]);
+                return $response
+                            ->withHeader('Content-Type', 'application/json')
+                            ->withJson([
+                                "item" => $data,
+                                "status-code" => "200",
+                                "status" => "true"
+                            ]);
 
             }else{
 
-                return $response->withHeader('Content-Type','application/json')
-                ->withJson([
-                "code" => "404",
-                "message" => "No item found"]);
+                return $response
+                            ->withHeader('Content-Type','application/json')
+                            ->withJson([
+                                "status-code" => "404",
+                                "message" => "No item found",
+                                "status" => "false"
+                            ]);
 
             } // /stmt. else
-      } // /md:showItem
+      } // /md:showItem:
 
 
       public function addItem($request, $response){
@@ -85,11 +100,14 @@
                     $full_img_path = $upload_path.$uploadFileName ;
 
                     if(empty($avatar)){
-                        return $response->withHeader('Content-Type', 'application/json')
-                                        ->withJson([
-                                          'code' => '404',
-                                          'message' => 'Expected a item avatar'
-                                        ]);
+                        $response
+                            ->withHeader('Content-Type', 'application/json')
+                             ->withJson([
+                                   'status-code' => '404',
+                                   'message' => 'Expected a item avatar',
+                                   'status'=>'false'
+                                      ]);
+                        return $response;
                     }
 
                     // image validations...
@@ -99,20 +117,24 @@
                         if($uploadedImageSize < 5000000){
                             if($avatar->getError() === UPLOAD_ERR_OK) $avatar->moveTo($full_img_path);
                         }else{
-                            return $response->withHeader('Content-Type', 'application/json')
-                                        ->withJson([
-                                          'code' => '503',
-                                          'message' =>'uploaded image size is too big.'
-                                        ]);
-
+                             $response
+                                 ->withHeader('Content-Type', 'application/json')
+                                 ->withJson([
+                                    'status-code' => '503',
+                                    'message' =>'uploaded image size is too big.',
+                                    'status' => 'false'
+                                ]);
+                             return $response;
                         }
                     }else{
-                            return $response->withHeader('Content-Type', 'application/json')
-                                        ->withJson([
-                                          'code' => '503',
-                                          'message' =>'uploaded image media type must be jpg or jpeg or png.'
+                            $response
+                                ->withHeader('Content-Type', 'application/json')
+                                ->withJson([
+                                    'status' =>'false',
+                                    'status-code' => '503',
+                                    'message' =>'uploaded image media type must be jpg or jpeg or png.'
                                         ]);
-
+                            return $response;
                         }
 
 
@@ -140,13 +162,16 @@
                     $insertStatment->execute();
 
                     if($insertStatment->execute()){
-                        return $response->withHeader('Content-Type' , 'application/json')
-                                  ->withJson([
-                                      'code' => '201',
+                        return $response
+                                   ->withHeader('Content-Type' , 'application/json')
+                                   ->withJson([
+                                      'status'=>'true',
+                                      'status-code' => '201',
                                       'message' => ' New Customer created successfully .']);
                     }else{
                       return $response->withHeader('Content-Type' , 'application/json')
-                                ->withJson([
+                          ->withJson([
+                                  'status' => 'false',
                                   'code' => '500',
                                   'message' => 'Sorry Error Occurs ..']);
                     }
@@ -178,10 +203,12 @@
 
                        if($data == null){
 
-                               return $response->withHeader('Content-Type','application/json')
-                               ->withJson([
-                               "code" => "404",
-                               "message" => "No valid item found"]);
+                           return $response
+                                      ->withHeader('Content-Type','application/json')
+                                      ->withJson([
+                                            "status" => "false",
+                                            "status-code" => "404",
+                                            "message" => "No valid item found"]);
                        };
 
                        $upc_ean_isbn = $request->getParam('upc_ean_isbn') ?? $data['upc_ean_isbn'] ;
@@ -226,16 +253,18 @@
                                     if($avatar->getError() === UPLOAD_ERR_OK) $avatar->moveTo($full_img_path);
                                 }else{
                                     return $response->withHeader('Content-Type', 'application/json')
-                                                ->withJson([
-                                                  'code' => '503',
+                                        ->withJson([
+                                                  'status' => 'false',
+                                                  'status-code' => '503',
                                                   'message' =>'uploaded image size is too big.'
                                                 ]);
 
                                 }
                             }else{
                                     return $response->withHeader('Content-Type', 'application/json')
-                                                ->withJson([
-                                                  'code' => '503',
+                                        ->withJson([
+                                                  'status' => 'false',
+                                                  'status-code' => '503',
                                                   'message' =>'uploaded image media type must be jpg or jpeg or png.'
                                                 ]);
 
@@ -281,8 +310,9 @@
 
 
                            return $response->withHeader('Content-Type' , 'application/json')
-                                   ->withJson([
-                                       'code' => '200',
+                               ->withJson([
+                                       'status' => 'true',
+                                       'status-code' => '200',
                                        'message' => ' updated item record successfully .']);
 
      }// /md: updateItemKit
@@ -308,10 +338,12 @@
 
                if($data == null){
 
-                       return $response->withHeader('Content-Type','application/json')
-                       ->withJson([
-                       "code" => "404",
-                       "message" => "No valid record found"]);
+                   return $response
+                              ->withHeader('Content-Type','application/json')
+                              ->withJson([
+                                    "status" => "false",
+                                    "status-code" => "404",
+                                    "message" => "No valid record found"]);
                }
 
 
@@ -324,9 +356,11 @@
                $db = null;
 
 
-               return $response->withHeader('Content-Type' , 'application/json')
+               return $response
+                       ->withHeader('Content-Type' , 'application/json')
                        ->withJson([
-                               'code' => '204',
+                               'status' => 'true',
+                               'status-code' => '204',
                                'message' => ' record deleted successfully .']);
        }// /md: delete the itemKit ...
 

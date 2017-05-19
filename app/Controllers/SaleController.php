@@ -13,12 +13,16 @@ class SaleController
 
             if($data != null){
                return $response->withHeader('Content-Type' , 'application/json')
-                               ->withJson(["sales" => $data]);
+                               ->withJson([
+                                   "status" => "true",
+                                   "status-code" => "200",
+                                   "sales" => $data]);
              } else {
 
                return $response->withHeader('Content-Type','application/json')
                                ->withJson([
-                                           "code" => "404",
+                                           "status" => "false",
+                                           "status-code" => "404",
                                            "message" => "No records found"
                                          ]);
                  }
@@ -36,11 +40,15 @@ class SaleController
 
           if($data != null){
              return $response->withHeader('Content-Type' , 'application/json')
-                             ->withJson(["sales" => $data]);
+                             ->withJson([
+                                 "status" => "true",
+                                 "status-code" => "200",
+                                 "sales" => $data]);
            } else {
               return $response->withHeader('Content-Type','application/json')
-                             ->withJson([
-                                         "code" => "404",
+                              ->withJson([
+                                         "status" => "false",
+                                         "status-code" => "404",
                                          "message" => "No records found"
                                        ]);
                }
@@ -72,22 +80,23 @@ class SaleController
             $invoice
             ));
 
-
             $db = null;
 
             $insertStatment->execute();
 
             if($insertStatment->execute()){
                 return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson([
-                            'code' => '201',
-                            'message' => ' New supplier created successfully .']);
+                                ->withJson([
+                                    'status' => 'true',
+                                    'status-code' => '201',
+                                    'message' => ' New supplier created successfully .']);
             }else{
             return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson([
-                        'code' => '500',
-                        'message' => 'Sorry Error Occurs ..']);
-            } // else
+                            ->withJson([
+                                'status' => 'false',
+                                'status-code' => '500',
+                                'message' => 'Sorry Error Occurs ..']);
+                    } // else
 
 
         } // md:addSales
@@ -114,9 +123,10 @@ class SaleController
               if($data == null){
 
                       $response->withHeader('Content-Type','application/json')
-                      ->withJson([
-                      "code" => "404",
-                      "message" => "No valid record found"]);
+                               ->withJson([
+                                    "status" => "false",
+                                    "status-code" => "404",
+                                    "message" => "No valid record found"]);
 
                       return $response;
               };
@@ -155,9 +165,10 @@ class SaleController
 
 
                   return $response->withHeader('Content-Type' , 'application/json')
-                          ->withJson([
-                              'code' => '200',
-                              'message' => ' updated item kit record successfully .']);
+                                  ->withJson([
+                                          'status' => 'true',
+                                          'status-code' => '200',
+                                          'message' => ' updated item kit record successfully .']);
         } // md : updateSales ...
 
 
@@ -175,9 +186,10 @@ class SaleController
                   // check the user is exist or not ...
                   if($data == null){
                           return $response->withHeader('Content-Type','application/json')
-                          ->withJson([
-                          "code" => "404",
-                          "message" => "No valid user found"]);
+                                          ->withJson([
+                                              "status" => "false",
+                                              "status-code" => "404",
+                                              "message" => "No valid user found"]);
                   }
                   $deleteSupplier = $db->delete()
                                           ->from('sales')
@@ -186,9 +198,10 @@ class SaleController
 
                   $db = null;
                   return $response->withHeader('Content-Type' , 'application/json')
-                          ->withJson([
-                                  'code' => '204',
-                                  'message' => ' supplier deleted successfully .']);
+                                  ->withJson([
+                                        'status' => 'true',
+                                        'status-code' => '204',
+                                        'message' => ' supplier deleted successfully .']);
           }// /md: deleteSales ...
 
 

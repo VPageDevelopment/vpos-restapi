@@ -14,13 +14,18 @@
         $db = null;
 
      if($data != null){
-        return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson(["itemKits" => $data]);
+            return $response->withHeader('Content-Type' , 'application/json')
+                            ->withJson([
+                                "status" => "true",
+                                "status-code" => "200",
+                                "itemKits" => $data]);
       } else {
 
-        return $response->withHeader('Content-Type','application/json')
-                        ->withJson([
-                                    "code" => "404",
+          return $response
+                          ->withHeader('Content-Type','application/json')
+                          ->withJson([
+                                    "status" => "false",
+                                    "status-code" => "404",
                                     "message" => "No records found"
                                   ]);
           }
@@ -38,15 +43,19 @@
 
 
         if($data != null){
-
-                return $response->withJson(["itemKit" => $data ]);
+            return $response->withHeader('Content-Type', 'application/json')
+                            ->withJson([
+                                "status" => "true",
+                                "status-code" => "200",
+                                "itemKit" => $data ]);
 
         }else{
 
             return $response->withHeader('Content-Type','application/json')
-            ->withJson([
-            "code" => "404",
-            "message" => "No valid user found"]);
+                            ->withJson([
+                                "status" => "false",
+                                "status-code" => "404",
+                                "message" => "No valid user found"]);
 
         } // /stmt. else
 
@@ -77,14 +86,16 @@
 
                 if($insertStatment->execute()){
                     return $response->withHeader('Content-Type' , 'application/json')
-                            ->withJson([
-                                'code' => '200',
-                                'message' => ' New item kit is  created successfully .']);
+                                    ->withJson([
+                                          'status' => 'true',
+                                          'status-code' => '200',
+                                          'message' => ' New item kit is  created successfully .']);
                 }else{
                 return $response->withHeader('Content-Type' , 'application/json')
-                            ->withJson([
-                            'code' => '500',
-                            'message' => 'Sorry Error Occurs ..']);
+                                ->withJson([
+                                    'status' => 'false',
+                                    'status-code' => '500',
+                                    'message' => 'Sorry Error Occurs ..']);
                 }
 
 
@@ -113,9 +124,10 @@
                         if($data == null){
 
                                 return $response->withHeader('Content-Type','application/json')
-                                ->withJson([
-                                "code" => "404",
-                                "message" => "No valid user found"]);
+                                                ->withJson([
+                                                    "status" => "false",
+                                                    "status-code" => "404",
+                                                    "message" => "No valid user found"]);
                         };
 
 
@@ -143,9 +155,10 @@
 
 
                             return $response->withHeader('Content-Type' , 'application/json')
-                                    ->withJson([
-                                        'code' => '200',
-                                        'message' => ' updated item kit record successfully .']);
+                                            ->withJson([
+                                                'status' => 'true',
+                                                'status-code' => '200',
+                                                'message' => ' updated item kit record successfully .']);
 
       }// /md: updateItemKit
 
@@ -170,9 +183,10 @@
                 if($data == null){
 
                         return $response->withHeader('Content-Type','application/json')
-                        ->withJson([
-                        "code" => "404",
-                        "message" => "No valid record found"]);
+                                        ->withJson([
+                                            "status" => "false",
+                                            "status-code" => "404",
+                                            "message" => "No valid record found"]);
                 }
 
 
@@ -186,8 +200,9 @@
 
 
                 return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson([
-                                'code' => '204',
+                                ->withJson([
+                                'status' => 'true',
+                                'status-code' => '204',
                                 'message' => ' records deleted successfully .']);
         }// /md: delete the itemKit ...
 

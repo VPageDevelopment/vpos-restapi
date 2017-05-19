@@ -14,16 +14,20 @@
 
      if($data != null){
         return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson(["Store Config Localisation" => $data]);
+                        ->withJson([
+                            "status" => "true",
+                            "status-code" => "200",
+                            "Store Config Localisation" => $data]);
       } else {
 
         return $response->withHeader('Content-Type','application/json')
                         ->withJson([
-                                    "code" => "404",
+                                    "status" => "false",
+                                    "status-code" => "404",
                                     "message" => "No records found"
                                   ]);
           }
-      } // /md: showItemKits ..
+      } // /md: showStoreConfigInvoices ..
 
 
 
@@ -47,7 +51,7 @@
 
                         $db = pdo();
 
-                        // update the itemKit ...
+                        // update the StoreConfigGeneral ...
                         $updateStatement = $db->update(array(
                                     'localisation ' => $localisation  ,
                                     'thousands_seperator' => $thousands_seperator ,
@@ -72,12 +76,13 @@
 
 
                         return $response->withHeader('Content-Type' , 'application/json')
-                                    ->withJson([
-                                        'code' => '204',
-                                        'message' => ' Record updated  successfully .']);
+                                        ->withJson([
+                                            'status' => 'true',
+                                            'status-code' => '204',
+                                            'message' => ' Record updated  successfully .']);
 
-      }// /md: updateItemKit
+      }// /md: updateStoreConfigInvoice
 
 
 
-} // /ctrl:ItemKit
+} // /ctrl:StoreConfigInvoice

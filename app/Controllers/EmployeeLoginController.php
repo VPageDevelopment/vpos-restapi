@@ -17,13 +17,19 @@
         $db = null;
 
         if($data != null){
-        return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson(["EmployeesLogins" => $data]);
+            return $response
+                       ->withHeader('Content-Type' , 'application/json')
+                       ->withJson([
+                           "status" => "true",
+                           "status-code" => "200",
+                           "EmployeesLogins" => $data]);
       } else {
 
-        return $response->withHeader('Content-Type','application/json')
+            return $response
+                        ->withHeader('Content-Type','application/json')
                         ->withJson([
-                                    "code" => "404",
+                                    "status" => "false",
+                                    "status-code" => "404",
                                     "message" => "No records found"
                                   ]);
 
@@ -43,13 +49,20 @@
       $db = null;
 
       if($data != null){
-            return $response->withJson(["Employee" => $data ]);
+          return $response
+                     ->withHeader('Content-Type' , 'application/json')
+                     ->withJson([
+                            "status" => "true",
+                            "status-code" => "200",
+                            "EmployeeLogin" => $data ]);
       }else{
 
-        return $response->withHeader('Content-Type','application/json')
-        ->withJson([
-          "code" => "404",
-          "message" => "No valid user found"]);
+          return $response
+                     ->withHeader('Content-Type','application/json')
+                     ->withJson([
+                            "status" => "false",
+                            "status-code" => "404",
+                            "message" => "No valid user found"]);
 
       } // /stmt. else
 
@@ -76,10 +89,12 @@
         $user = $userStatament->execute();
         $isUserNameExist = $user->fetch();
         if($isUserNameExist != null){
-          return $response->withHeader('Content-Type' , 'application/json')
-                    ->withJson([
-                        'code' => '200',
-                        'message' => 'Username is already taken . New someother name..']);
+            return $response
+                        ->withHeader('Content-Type' , 'application/json')
+                        ->withJson([
+                            'status' => 'false',
+                            'status-code' => '300',
+                            'message' => 'Username is already taken . New someother name..']);
         }
 
 
@@ -92,10 +107,12 @@
         $isCrendentialExist = $stmt->fetch();
 
         if($isCrendentialExist != null){
-          return $response->withHeader('Content-Type' , 'application/json')
-                    ->withJson([
-                        'code' => '200',
-                        'message' => ' The credentials  for this employee is already exist.']);
+            return $response
+                        ->withHeader('Content-Type' , 'application/json')
+                        ->withJson([
+                            'status' => 'false',
+                            'status-code' => '300',
+                            'message' => ' The credentials  for this employee is already exist.']);
         }
 
 
@@ -111,17 +128,20 @@
         $insertStatment->execute();
 
         if($insertStatment->execute()){
-            return $response->withHeader('Content-Type' , 'application/json')
-                      ->withJson([
-                          'code' => '200',
+            return $response
+                       ->withHeader('Content-Type' , 'application/json')
+                       ->withJson([
+                          'status' => 'true',
+                          'status-code' => '200',
                           'message' => ' New employee credentials is created successfully .']);
         }else{
-          return $response->withHeader('Content-Type' , 'application/json')
-                    ->withJson([
-                      'code' => '500',
-                      'message' => 'Sorry Error Occurs ..']);
+            return $response
+                        ->withHeader('Content-Type' , 'application/json')
+                        ->withJson([
+                            'status' => 'false',
+                            'status-code' => '500',
+                            'message' => 'Sorry Error Occurs ..']);
         };
-
 
     }
 
@@ -148,10 +168,12 @@
         // check the is already exist or not ...$_COOKIE
         if( $data == null ){
 
-                return $response->withHeader('Content-Type','application/json')
-                ->withJson([
-                "code" => "404",
-                "message" => "No valid employee found"]);
+            return $response
+                        ->withHeader('Content-Type','application/json')
+                        ->withJson([
+                             "status" => "false",
+                             "status-code" => "404",
+                             "message" => "No valid employee found"]);
          };
 
 
@@ -177,9 +199,11 @@
 
         $db = null;
 
-        return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson([
-                          'code' => '200',
+        return $response
+                    ->withHeader('Content-Type' , 'application/json')
+                    ->withJson([
+                          'status' => 'true',
+                          'status-code' => '200',
                           'message' => ' updated records successfully .'
                         ]);
 
@@ -207,11 +231,12 @@
                 // check the user is exist or not ...
 
                 if($data == null){
-                        return $response->withHeader('Content-Type','application/json')
-
-                        ->withJson([
-                        "code" => "404",
-                        "message" => "No valid user found"]);
+                        return $response
+                                    ->withHeader('Content-Type','application/json')
+                                    ->withJson([
+                                         "status" => "false",
+                                         "status-code" => "404",
+                                         "message" => "No valid user found"]);
                 };
 
                 $deleteCustomer = $db->delete()
@@ -221,9 +246,11 @@
                 $delete = $deleteCustomer->execute();
                 $db = null;
 
-                return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson([
-                                'code' => '204',
+                return $response
+                            ->withHeader('Content-Type' , 'application/json')
+                            ->withJson([
+                                'status' => 'true',
+                                'status-code' => '204',
                                 'message' => ' employee deleted successfully .']);
 
         }// /md: delete the customer ...
