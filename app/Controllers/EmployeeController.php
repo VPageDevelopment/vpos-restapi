@@ -24,7 +24,7 @@
                         ->withHeader('Content-Type' , 'application/json')
                         ->withJson([
                             "status" => "true",
-                            "status-code" => "200",
+                            "status_code" => "200",
                             "Employees" => $data]);
       } else {
 
@@ -32,7 +32,7 @@
                         ->withHeader('Content-Type','application/json')
                         ->withJson([
                                     "status" => "false",
-                                    "status-code" => "404",
+                                    "status_code" => "404",
                                     "message" => "No records found"
                                   ]);
 
@@ -56,7 +56,7 @@
                      ->withHeader('Content-Type', 'application/json')
                      ->withJson([
                          "status" => "true",
-                         "status-code" => "200",
+                         "status_code" => "200",
                          "Employee" => $data ]);
       }else{
 
@@ -64,7 +64,7 @@
                      ->withHeader('Content-Type','application/json')
                      ->withJson([
                         "status" => "false",
-                        "status-code" => "404",
+                        "status_code" => "404",
                         "message" => "No valid user found"]);
 
       } // /stmt. else
@@ -111,14 +111,14 @@
                         ->withHeader('Content-Type' , 'application/json')
                         ->withJson([
                             'status' => 'true',
-                            'status-code' => '201',
+                            'status_code' => '201',
                             'message' => ' New Employee created successfully .']);
         }else{
             return $response
                        ->withHeader('Content-Type' , 'application/json')
                        ->withJson([
                            'status' => 'false',
-                           'status-code' => '500',
+                           'status_code' => '500',
                            'message' => 'Sorry Error Occurs ..']);
         };
 
@@ -150,7 +150,7 @@
                        ->withHeader('Content-Type','application/json')
                        ->withJson([
                             "status" => "false",
-                            "status-code" => "404",
+                            "status_code" => "404",
                             "message" => "No valid employee found"]);
          };
 
@@ -211,7 +211,7 @@
                     ->withHeader('Content-Type' , 'application/json')
                     ->withJson([
                           'status' => 'true',
-                          'status-code' => '200',
+                          'status_code' => '200',
                           'message' => ' updated records successfully .']);
 
 
@@ -243,7 +243,7 @@
                                 ->withHeader('Content-Type','application/json')
                                 ->withJson([
                                     "status" =>"false",
-                                    "status-code" => "404",
+                                    "status_code" => "404",
                                     "message" => "No valid user found"]);
                 };
 
@@ -258,7 +258,7 @@
                             ->withHeader('Content-Type' , 'application/json')
                             ->withJson([
                                 'status'=>'true',
-                                'status-code' => '204',
+                                'status_code' => '204',
                                 'message' => ' employee deleted successfully .']);
 
         }// /md: delete the customer ...

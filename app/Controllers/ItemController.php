@@ -15,14 +15,14 @@
                         ->withHeader('Content-Type' , 'application/json')
                         ->withJson([
                             "items" => $data,
-                            "status-code" => "200",
+                            "status_code" => "200",
                             "status" => "true",
                         ]);
             } else {
 
                 return $response->withHeader('Content-Type','application/json')
                                 ->withJson([
-                                            "status-code" => "404",
+                                            "status_code" => "404",
                                             "message" => "No records found",
                                             "status" => "false"
                                         ]);
@@ -50,7 +50,7 @@
                             ->withHeader('Content-Type', 'application/json')
                             ->withJson([
                                 "item" => $data,
-                                "status-code" => "200",
+                                "status_code" => "200",
                                 "status" => "true"
                             ]);
 
@@ -59,7 +59,7 @@
                 return $response
                             ->withHeader('Content-Type','application/json')
                             ->withJson([
-                                "status-code" => "404",
+                                "status_code" => "404",
                                 "message" => "No item found",
                                 "status" => "false"
                             ]);
@@ -103,7 +103,7 @@
                         $response
                             ->withHeader('Content-Type', 'application/json')
                              ->withJson([
-                                   'status-code' => '404',
+                                   'status_code' => '404',
                                    'message' => 'Expected a item avatar',
                                    'status'=>'false'
                                       ]);
@@ -120,7 +120,7 @@
                              $response
                                  ->withHeader('Content-Type', 'application/json')
                                  ->withJson([
-                                    'status-code' => '503',
+                                    'status_code' => '503',
                                     'message' =>'uploaded image size is too big.',
                                     'status' => 'false'
                                 ]);
@@ -131,7 +131,7 @@
                                 ->withHeader('Content-Type', 'application/json')
                                 ->withJson([
                                     'status' =>'false',
-                                    'status-code' => '503',
+                                    'status_code' => '503',
                                     'message' =>'uploaded image media type must be jpg or jpeg or png.'
                                         ]);
                             return $response;
@@ -166,7 +166,7 @@
                                    ->withHeader('Content-Type' , 'application/json')
                                    ->withJson([
                                       'status'=>'true',
-                                      'status-code' => '201',
+                                      'status_code' => '201',
                                       'message' => ' New Customer created successfully .']);
                     }else{
                       return $response->withHeader('Content-Type' , 'application/json')
@@ -207,7 +207,7 @@
                                       ->withHeader('Content-Type','application/json')
                                       ->withJson([
                                             "status" => "false",
-                                            "status-code" => "404",
+                                            "status_code" => "404",
                                             "message" => "No valid item found"]);
                        };
 
@@ -255,7 +255,7 @@
                                     return $response->withHeader('Content-Type', 'application/json')
                                         ->withJson([
                                                   'status' => 'false',
-                                                  'status-code' => '503',
+                                                  'status_code' => '503',
                                                   'message' =>'uploaded image size is too big.'
                                                 ]);
 
@@ -264,7 +264,7 @@
                                     return $response->withHeader('Content-Type', 'application/json')
                                         ->withJson([
                                                   'status' => 'false',
-                                                  'status-code' => '503',
+                                                  'status_code' => '503',
                                                   'message' =>'uploaded image media type must be jpg or jpeg or png.'
                                                 ]);
 
@@ -312,7 +312,7 @@
                            return $response->withHeader('Content-Type' , 'application/json')
                                ->withJson([
                                        'status' => 'true',
-                                       'status-code' => '200',
+                                       'status_code' => '200',
                                        'message' => ' updated item record successfully .']);
 
      }// /md: updateItemKit
@@ -342,7 +342,7 @@
                               ->withHeader('Content-Type','application/json')
                               ->withJson([
                                     "status" => "false",
-                                    "status-code" => "404",
+                                    "status_code" => "404",
                                     "message" => "No valid record found"]);
                }
 
@@ -360,7 +360,7 @@
                        ->withHeader('Content-Type' , 'application/json')
                        ->withJson([
                                'status' => 'true',
-                               'status-code' => '204',
+                               'status_code' => '204',
                                'message' => ' record deleted successfully .']);
        }// /md: delete the itemKit ...
 

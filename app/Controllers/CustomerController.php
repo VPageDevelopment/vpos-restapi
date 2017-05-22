@@ -18,7 +18,7 @@
                         ->withHeader('Content-Type' , 'application/json')
                         ->withJson([
                             "status" => "true",
-                            "status-code" => "200",
+                            "status_code" => "200",
                             "customers" => $data
                         ]);
       } else {
@@ -26,7 +26,7 @@
           return $response
                     ->withHeader('Content-Type','application/json')
                     ->withJson([  "status" => "false",
-                                  "status-code" => "404",
+                                  "status_code" => "404",
                                   "message" => "No records found"
                                   ]);
 
@@ -55,7 +55,7 @@
                      ->withJson([
                            "status" => "true",
                            "customer" => $data,
-                           "status-code" => "200"
+                           "status_code" => "200"
                        ]);
 
       }else{
@@ -63,7 +63,7 @@
           return $response
                      ->withHeader('Content-Type','application/json')
                      ->withJson([
-                         "status-code" => "404",
+                         "status_code" => "404",
                          "status" => "false",
                          "message" => "No valid user found.."]);
 
@@ -119,7 +119,7 @@
                        ->withHeader('Content-Type' , 'application/json')
                        ->withJson([
                           'status' => 'true',
-                          'status-code' => '201',
+                          'status_code' => '201',
                           'message' => ' New Customer created successfully .'
                       ]);
         }else{
@@ -127,7 +127,7 @@
                        ->withHeader('Content-Type' , 'application/json')
                        ->withJson([
                            'status' => 'false',
-                           'status-code' => '500',
+                           'status_code' => '500',
                            'message' => 'Sorry Error Occurs ..']);
         }
 
@@ -160,7 +160,7 @@
                         ->withHeader('Content-Type','application/json')
                         ->withJson([
                               "status" => "false",
-                              "status-code" => "404",
+                              "status_code" => "404",
                               "message" => "No valid user found"]);
          }
 
@@ -236,7 +236,7 @@
                     ->withHeader('Content-Type' , 'application/json')
                     ->withJson([
                           'status' => 'true',
-                          'status-code' => '200',
+                          'status_code' => '200',
                           'message' => ' update created successfully .']);
 
 

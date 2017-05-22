@@ -16,14 +16,14 @@
         return $response->withHeader('Content-Type' , 'application/json')
                         ->withJson([
                             "status" => "true",
-                            "status-code" => "200",
+                            "status_code" => "200",
                             "Store Config Receipt" => $data]);
       } else {
 
         return $response->withHeader('Content-Type','application/json')
                         ->withJson([
                                     "status" => "false",
-                                    "status-code" => "404",
+                                    "status_code" => "404",
                                     "message" => "No records found"
                                   ]);
           }
@@ -82,7 +82,7 @@
                         return $response->withHeader('Content-Type' , 'application/json')
                                         ->withJson([
                                             'status' => 'true',
-                                            'status-code' => '204',
+                                            'status_code' => '204',
                                             'message' => ' Record updated  successfully .']);
 
       }// /md: updateStoreConfigReceipt

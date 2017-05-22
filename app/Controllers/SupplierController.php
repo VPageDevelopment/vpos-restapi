@@ -17,14 +17,14 @@
               return $response->withHeader('Content-Type' , 'application/json')
                               ->withJson([
                                   "status" => "true",
-                                  "status-code" => "200",
+                                  "status_code" => "200",
                                   "suppliers" => $data]);
             } else {
 
               return $response->withHeader('Content-Type','application/json')
                               ->withJson([
                                           "status" => "false",
-                                          "status-code" => "404",
+                                          "status_code" => "404",
                                           "message" => "No records found"
                                         ]);
                 }
@@ -48,7 +48,7 @@
                   return $response->withHeader('Content-Type', 'application/json')
                                   ->withJson([
                                       "status" => "true",
-                                      "status-code" => "200",
+                                      "status_code" => "200",
                                       "message" => $data ]);
 
               }else{
@@ -56,7 +56,7 @@
                   return $response->withHeader('Content-Type','application/json')
                                   ->withJson([
                                       "status"=>"false",
-                                      "status-code" => "404",
+                                      "status_code" => "404",
                                       "message" => "No valid user found"]);
 
               } // /stmt. else
@@ -107,13 +107,13 @@
                     return $response->withHeader('Content-Type' , 'application/json')
                                     ->withJson([
                                         'status'=>'true',
-                                        'status-code' => '201',
+                                        'status_code' => '201',
                                         'message' => ' New supplier created successfully .']);
                 }else{
                 return $response->withHeader('Content-Type' , 'application/json')
                                 ->withJson([
                                     'status' => 'false',
-                                    'status-code' => '500',
+                                    'status_code' => '500',
                                     'message' => 'Sorry Error Occurs ..']);
                 }
 
@@ -140,7 +140,7 @@
                                 return $response->withHeader('Content-Type','application/json')
                                                 ->withJson([
                                                     "status" => "false",
-                                                    "status-code" => "404",
+                                                    "status_code" => "404",
                                                     "message" => "No valid user found"]);
                                             };
 
@@ -212,7 +212,7 @@
                             return $response->withHeader('Content-Type' , 'application/json')
                                             ->withJson([
                                                 'status' => 'true',
-                                                'status-code' => '200',
+                                                'status_code' => '200',
                                                 'message' => ' update  supplier  successfully .']);
 
       }// /md: updateSupplire
@@ -234,7 +234,7 @@
                         return $response->withHeader('Content-Type','application/json')
                                         ->withJson([
                                             "status" => "false",
-                                            "status-code" => "404",
+                                            "status_code" => "404",
                                             "message" => "No valid user found"]);
                 }
                 $deleteSupplier = $db->delete()
@@ -246,7 +246,7 @@
                 return $response->withHeader('Content-Type' , 'application/json')
                                 ->withJson([
                                         'status' => 'true',
-                                        'status-code' => '204',
+                                        'status_code' => '204',
                                         'message' => ' supplier deleted successfully .']);
         }// /md: delete the supplier ...
 

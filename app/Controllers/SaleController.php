@@ -15,14 +15,14 @@ class SaleController
                return $response->withHeader('Content-Type' , 'application/json')
                                ->withJson([
                                    "status" => "true",
-                                   "status-code" => "200",
+                                   "status_code" => "200",
                                    "sales" => $data]);
              } else {
 
                return $response->withHeader('Content-Type','application/json')
                                ->withJson([
                                            "status" => "false",
-                                           "status-code" => "404",
+                                           "status_code" => "404",
                                            "message" => "No records found"
                                          ]);
                  }
@@ -42,13 +42,13 @@ class SaleController
              return $response->withHeader('Content-Type' , 'application/json')
                              ->withJson([
                                  "status" => "true",
-                                 "status-code" => "200",
+                                 "status_code" => "200",
                                  "sales" => $data]);
            } else {
               return $response->withHeader('Content-Type','application/json')
                               ->withJson([
                                          "status" => "false",
-                                         "status-code" => "404",
+                                         "status_code" => "404",
                                          "message" => "No records found"
                                        ]);
                }
@@ -88,13 +88,13 @@ class SaleController
                 return $response->withHeader('Content-Type' , 'application/json')
                                 ->withJson([
                                     'status' => 'true',
-                                    'status-code' => '201',
+                                    'status_code' => '201',
                                     'message' => ' New supplier created successfully .']);
             }else{
             return $response->withHeader('Content-Type' , 'application/json')
                             ->withJson([
                                 'status' => 'false',
-                                'status-code' => '500',
+                                'status_code' => '500',
                                 'message' => 'Sorry Error Occurs ..']);
                     } // else
 
@@ -125,7 +125,7 @@ class SaleController
                       $response->withHeader('Content-Type','application/json')
                                ->withJson([
                                     "status" => "false",
-                                    "status-code" => "404",
+                                    "status_code" => "404",
                                     "message" => "No valid record found"]);
 
                       return $response;
@@ -167,7 +167,7 @@ class SaleController
                   return $response->withHeader('Content-Type' , 'application/json')
                                   ->withJson([
                                           'status' => 'true',
-                                          'status-code' => '200',
+                                          'status_code' => '200',
                                           'message' => ' updated item kit record successfully .']);
         } // md : updateSales ...
 
@@ -188,7 +188,7 @@ class SaleController
                           return $response->withHeader('Content-Type','application/json')
                                           ->withJson([
                                               "status" => "false",
-                                              "status-code" => "404",
+                                              "status_code" => "404",
                                               "message" => "No valid user found"]);
                   }
                   $deleteSupplier = $db->delete()
@@ -200,7 +200,7 @@ class SaleController
                   return $response->withHeader('Content-Type' , 'application/json')
                                   ->withJson([
                                         'status' => 'true',
-                                        'status-code' => '204',
+                                        'status_code' => '204',
                                         'message' => ' supplier deleted successfully .']);
           }// /md: deleteSales ...
 

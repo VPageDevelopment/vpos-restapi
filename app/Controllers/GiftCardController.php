@@ -16,14 +16,14 @@
         return $response->withHeader('Content-Type' , 'application/json')
                         ->withJson([
                             "status" => "true",
-                            "status-code" => "200",
+                            "status_code" => "200",
                             "giftCards" => $data]);
       } else {
 
         return $response->withHeader('Content-Type','application/json')
                         ->withJson([
                                     "status" => "false",
-                                    "status-code" => "404",
+                                    "status_code" => "404",
                                     "message" => "No records found"
                                   ]);
           }
@@ -49,7 +49,7 @@
             return $response->withHeader('Content-Type','application/json')
                             ->withJson([
                                  "status" => "false",
-                                 "status-code" => "404",
+                                 "status_code" => "404",
                                  "message" => "No valid user found"]);
 
         } // /stmt. else
@@ -83,13 +83,13 @@
                     return $response->withHeader('Content-Type' , 'application/json')
                                     ->withJson([
                                         'status' => 'true',
-                                        'status-code' => '201',
+                                        'status_code' => '201',
                                         'message' => ' New Gift Card is  created successfully .']);
                 }else{
                 return $response->withHeader('Content-Type' , 'application/json')
                                 ->withJson([
                                     'status' => 'false',
-                                    'status-code' => '500',
+                                    'status_code' => '500',
                                     'message' => 'Sorry Error Occurs ..']);
                 }
 
@@ -115,7 +115,7 @@
                                 return $response->withHeader('Content-Type','application/json')
                                                 ->withJson([
                                                     "status" => "false",
-                                                    "status-code" => "404",
+                                                    "status_code" => "404",
                                                     "message" => "No valid record found"]);
                         };
 
@@ -145,7 +145,7 @@
                             return $response->withHeader('Content-Type' , 'application/json')
                                             ->withJson([
                                                 'status' => 'true',
-                                                'status-code' => '200',
+                                                'status_code' => '200',
                                                 'message' => 'Record updated successfully.']);
 
       }// /md: updateItemKit
@@ -172,7 +172,7 @@
                         return $response->withHeader('Content-Type','application/json')
                                         ->withJson([
                                                 "status" => "false",
-                                                "status-code" => "404",
+                                                "status_code" => "404",
                                                 "message" => "No valid record found"]);
                 }
 
@@ -184,7 +184,7 @@
                 return $response->withHeader('Content-Type' , 'application/json')
                                 ->withJson([
                                     'status' => 'true',
-                                    'status-code' => '204',
+                                    'status_code' => '204',
                                     'message' => ' records deleted successfully .']);
             }// /md: delete the itemKit ...
 
