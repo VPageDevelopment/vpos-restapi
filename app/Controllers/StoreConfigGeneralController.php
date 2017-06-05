@@ -14,7 +14,7 @@
 
      if($data != null){
         return $response->withHeader('Content-Type' , 'application/json')
-                        ->withJson(["Store Config Information" => $data]);
+                        ->withJson(["Store_Config_Information" => $data]);
       } else {
 
         return $response->withHeader('Content-Type','application/json')
