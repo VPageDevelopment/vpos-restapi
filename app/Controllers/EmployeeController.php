@@ -87,21 +87,124 @@
         $zip = $request->getParam('zip');
         $country = $request->getParam('country');
         $comments = $request->getParam('comments');
+        
+        // employee login ...
+        $username = $request->getParam('username');
+        $password = $request->getParam('password');
+
+        $hashPassword = hashPassword($password);
+
+        // employee permission ..
+        $customer = $request->getParam('ep_customer');
+        $items = $request->getParam('ep_items');
+        $items_store = $request->getParam('ep_items_store');
+        $supplier = $request->getParam('ep_supplier');
+        $reports = $request->getParam('ep_reports');
+        $reports_categories = $request->getParam('ep_reports_categories');
+        $reports_customer = $request->getParam('ep_reports_customer');
+        $reports_discount = $request->getParam('ep_reports_discount');
+        $reports_employee = $request->getParam('ep_reports_employee');
+        $reports_inventory = $request->getParam('ep_reports_inventory');
+        $reports_items = $request->getParam('ep_reports_items');
+        $reports_payments = $request->getParam('ep_reports_payments');
+        $reports_recivings = $request->getParam('ep_reports_reciving');
+        $reports_sale = $request->getParam('ep_reports_sale');
+        $reports_supplier = $request->getParam('ep_reports_supplier');
+        $reports_taxes = $request->getParam('ep_reports_taxes');
+        $recivings = $request->getParam('ep_recivings');
+        $reciving_store = $request->getParam('ep_reciving_store');
+        $sales = $request->getParam('ep_sales');
+        $sales_store = $request->getParam('ep_sales_store');
+        $employee = $request->getParam('ep_employee');
+        $gift_cards = $request->getParam('ep_gift_cards');
+        $messages = $request->getParam('ep_message');
+        $store_config = $request->getParam('ep_store_config');
+
 
         // create a new instance of slim\pdo by calling the pdo ...
         $db = pdo();
 
         // insert into customer table
         $insertStatment = $db->insert(array(
-          'first_name','last_name','gender','email',
-          'phone_number','address_one','address_two',
-          'city','state','zip','country','comments'
+          'first_name',
+          'last_name',
+          'gender',
+          'email',
+          'phone_number',
+          'address_one',
+          'address_two',
+          'city',
+          'state',
+          'zip',
+          'country',
+          'comments',
+          'username',
+          'password',
+          'ep_customer',
+          'ep_items',
+          'ep_items_store',
+          'ep_supplier',
+          'ep_reports',
+          'ep_reports_categories',
+          'ep_reports_customer',
+          'ep_reports_discount',
+          'ep_reports_employee',
+          'ep_reports_inventory',
+          'ep_reports_items',
+          'ep_reports_payments',
+          'ep_reports_reciving',
+          'ep_reports_sale',
+          'ep_reports_supplier',
+          'ep_reports_taxes',
+          'ep_recivings',
+          'ep_reciving_store',
+          'ep_sales',
+          'ep_sales_store',
+          'ep_employee',
+          'ep_gift_cards',
+          'ep_message',
+          'ep_store_config'
         ))
         ->into('employee')
         ->values(array(
-          $first_name , $last_name , $gender , $email ,
-          $phone_number , $address_one , $address_two ,
-          $city , $state , $zip , $country , $comments
+          $first_name , 
+          $last_name , 
+          $gender , 
+          $email ,
+          $phone_number ,
+          $address_one ,
+          $address_two ,
+          $city,
+          $state , 
+          $zip , 
+          $country , 
+          $comments,
+          $username,
+          $hashPassword,
+          $customer,
+          $items,
+          $items_store,
+          $supplier,
+          $reports,
+          $reports_categories,
+          $reports_customer,
+          $reports_discount,
+          $reports_employee,
+          $reports_inventory,
+          $reports_items,
+          $reports_payments,
+          $reports_recivings,
+          $reports_sale,
+          $reports_supplier,
+          $reports_taxes,
+          $recivings,
+          $reciving_store,
+          $sales,
+          $sales_store,
+          $employee,
+          $gift_cards,
+          $messages,
+          $store_config
         ));
 
         $insertStatment->execute();
@@ -179,6 +282,66 @@
         $comments =
                 $request->getParam('comments')  ?? $data['comments'];
 
+        
+        // employee login ...
+        $username = 
+                $request->getParam('username')?? $data['username'];
+        $password = $request->getParam('password')?? $data['password'];
+
+        $hashPassword = hashPassword($password);
+
+        // employee permission ..
+        $customer =
+                 $request->getParam('ep_customer')?? $data['ep_customer'];
+        $items = 
+                $request->getParam('ep_items')?? $data['ep_items'];
+        $items_stock = 
+                $request->getParam('ep_items_stock')?? $data['ep_items_stock'];
+        $supplier =
+                 $request->getParam('ep_supplier')?? $data['ep_supplier'];
+        $reports = 
+                $request->getParam('ep_reports')?? $data['reports'];
+        $reports_categories = 
+                $request->getParam('ep_reports_categories')?? $data['ep_reports_categories'];
+        $reports_customer = 
+                $request->getParam('ep_reports_customer')?? $data['ep_reports_customer'];
+        $reports_discount = 
+                $request->getParam('ep_reports_discount')?? $data['ep_reports_discount'];
+        $reports_employee = 
+                $request->getParam('ep_reports_employee')?? $data['ep_reports_employee'];
+        $reports_inventory = 
+                $request->getParam('reports_inventory')?? $data['ep_reports_inventory'];
+        $reports_items = 
+                $request->getParam('ep_reports_items')?? $data['ep_reports_items'];
+        $reports_payments = 
+                $request->getParam('ep_reports_payments')?? $data['ep_reports_payments'];
+        $reports_recivings = 
+                $request->getParam('ep_reports_recivings')?? $data['ep_reports_recivings'];
+        $reports_sales = 
+                $request->getParam('ep_reports_sales')?? $data['ep_reports_sales'];
+        $reports_suppiler = 
+                $request->getParam('ep_reports_suppiler')?? $data['ep_reports_suppiler'];
+        $reports_taxes = 
+                $request->getParam('ep_reports_taxes')?? $data['ep_reports_taxes'];
+        $recivings = 
+                $request->getParam('ep_recivings')?? $data['ep_recivings'];
+        $recivings_stock = 
+                $request->getParam('ep_recivings_store')?? $data['ep_recivings_store'];
+        $sales = 
+                $request->getParam('ep_sales')?? $data['ep_sales'];
+        $sales_stock = 
+                $request->getParam('ep_sales_store')?? $data['ep_sales_store'];
+        $employee = 
+                $request->getParam('ep_employee')?? $data['ep_employee'];
+        $gift_cards = 
+                $request->getParam('ep_gift_cards')?? $data['ep_gift_cards'];
+        $messages = 
+                $request->getParam('ep_message')?? $data['ep_message'];
+        $store_config = 
+                $request->getParam('ep_store_config')?? $data['ep_store_config'];
+
+
+
         $updated_at = getUpdateTime();
 
 
@@ -198,6 +361,30 @@
                        'zip' => $zip ,
                        'country' => $country ,
                        'comments' => $comments,
+                       'ep_customer'=>$customer,
+                       'ep_items'=>$items,
+                       'ep_items_store'=>$items_store,
+                       'ep_supplier'=>$supplier,
+                       'ep_reports'=>$reports,
+                       'ep_reports_categories'=>$reports_categories,
+                       'ep_reports_customer'=>$reports_customer,
+                       'ep_reports_discount'=>$reports_discount,
+                       'ep_reports_employee'=>$reports_employee,
+                       'ep_reports_inventory'=>$reports_inventory,
+                       'ep_reports_items'=>$reports_items,
+                       'ep_reports_payments'=>$reports_payments,
+                       'ep_reports_reciving'=>$reports_recivings,
+                       'ep_reports_sale'=>$reports_sale,
+                       'ep_reports_supplier'=>$reports_suppiler,
+                       'ep_reports_taxes'=>$reports_taxes,
+                       'ep_recivings'=>$recivings,
+                       'ep_reciving_store'=>$recivings_store,
+                       'ep_sales'=>$sales,
+                       'ep_sales_store'=>$salse_store,
+                       'ep_employee'=>$employee,
+                       'ep_gift_cards'=>$gift_cards,
+                       'ep_message'=>$message,
+                       'ep_store_config'=>$store_config,
                        'updated_at' => $updated_at
                        ))
                        ->table('employee')
