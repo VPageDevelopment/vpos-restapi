@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 06, 2017 at 06:55 AM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 7.1.1
+-- Host: 127.0.0.1
+-- Generation Time: Jun 08, 2017 at 11:08 AM
+-- Server version: 10.1.22-MariaDB
+-- PHP Version: 7.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -76,6 +78,32 @@ CREATE TABLE `employee` (
   `zip` int(11) NOT NULL,
   `country` varchar(160) NOT NULL,
   `comments` text NOT NULL,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `ep_customer` enum('Y','N') NOT NULL,
+  `ep_items` enum('Y','N') NOT NULL,
+  `ep_items_store` enum('Y','N') NOT NULL,
+  `ep_supplier` enum('Y','N') NOT NULL,
+  `ep_reports` enum('Y','N') NOT NULL,
+  `ep_reports_categories` enum('Y','N') NOT NULL,
+  `ep_reports_customer` enum('Y','N') NOT NULL,
+  `ep_reports_discount` enum('Y','N') NOT NULL,
+  `ep_reports_employee` enum('Y','N') NOT NULL,
+  `ep_reports_inventory` enum('Y','N') NOT NULL,
+  `ep_reports_items` enum('Y','N') NOT NULL,
+  `ep_reports_payments` enum('Y','N') NOT NULL,
+  `ep_reports_reciving` enum('Y','N') NOT NULL,
+  `ep_reports_sale` enum('Y','N') NOT NULL,
+  `ep_reports_supplier` enum('Y','N') NOT NULL,
+  `ep_reports_taxes` enum('Y','N') NOT NULL,
+  `ep_recivings` enum('Y','N') NOT NULL,
+  `ep_reciving_store` enum('Y','N') NOT NULL,
+  `ep_sales` enum('Y','N') NOT NULL,
+  `ep_sales_store` enum('Y','N') NOT NULL,
+  `ep_employee` enum('Y','N') NOT NULL,
+  `ep_gift_cards` enum('Y','N') NOT NULL,
+  `ep_message` enum('Y','N') NOT NULL,
+  `ep_store_config` enum('Y','N') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -84,77 +112,10 @@ CREATE TABLE `employee` (
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `gender`, `email`, `phone_number`, `address_one`, `address_two`, `city`, `state`, `zip`, `country`, `comments`, `created_at`, `updated_at`) VALUES
-(2, 'surendar', 'k', 'M', 'surea17@yahoo.com', '9659869830', 'no 123 main street,', 'vikkravandi', 'villupuram', 'Tamil Nadu', 605652, 'india', 'awesome employee', '2017-05-03 06:54:22', '2017-05-03 06:54:22'),
-(4, 'arun', 'k', 'M', 'surea17@yahoo.com', '9659869830', 'no 123 main street,', 'vikkravandi', 'villupuram', 'Tamil Nadu', 605652, 'india', 'awesome employee', '2017-05-03 07:31:05', '2017-05-03 07:31:05'),
-(5, 'arun', 's', 'M', 'surea17@yahoo.com', '9659869830', 'no 123 main street,', 'vikkravandi', 'villupuram', 'Tamil Nadu', 605652, 'india', 'awesome employee', '2017-05-03 07:31:05', '2017-05-02 19:31:47');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `employee_login`
---
-
-CREATE TABLE `employee_login` (
-  `employee_login_id` int(11) NOT NULL,
-  `employee_fk` int(11) NOT NULL,
-  `user_name` varchar(60) NOT NULL,
-  `password` varchar(60) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `employee_login`
---
-
-INSERT INTO `employee_login` (`employee_login_id`, `employee_fk`, `user_name`, `password`, `created_at`, `updated_at`) VALUES
-(1, 2, 'admin', '$2y$10$gedhMvDU5DpqCjrRATJyYeNokSyoaDoSgDGw48f4PxjDWMClYm39W', '2017-05-03 10:11:37', '2017-05-03 10:11:37'),
-(2, 4, 'emp1', '$2y$10$W8L1CYXHM2HDmTnUIdvBVOUrWPqEUGznQ1.Yn5A62JMNlHbIuXOvq', '2017-05-05 12:26:29', '2017-05-05 12:26:29');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `employee_permissions`
---
-
-CREATE TABLE `employee_permissions` (
-  `employee_permissions_id` int(11) NOT NULL,
-  `employee_fk` int(11) NOT NULL,
-  `customer` enum('Y','N') NOT NULL DEFAULT 'N',
-  `items` enum('Y','N') NOT NULL DEFAULT 'N',
-  `items_stock` enum('Y','N') NOT NULL DEFAULT 'N',
-  `supplier` enum('Y','N') NOT NULL DEFAULT 'N',
-  `reports` enum('Y','N') NOT NULL DEFAULT 'N',
-  `reports_categories` enum('Y','N') NOT NULL DEFAULT 'N',
-  `reports_customer` enum('Y','N') NOT NULL DEFAULT 'N',
-  `reports_discount` enum('Y','N') NOT NULL DEFAULT 'N',
-  `reports_employee` enum('Y','N') NOT NULL DEFAULT 'N',
-  `reports_inventory` enum('Y','N') NOT NULL DEFAULT 'N',
-  `reports_items` enum('Y','N') NOT NULL DEFAULT 'N',
-  `reports_payments` enum('Y','N') NOT NULL DEFAULT 'N',
-  `reports_recivings` enum('Y','N') NOT NULL DEFAULT 'N',
-  `reports_sales` enum('Y','N') NOT NULL DEFAULT 'N',
-  `reports_suppiler` enum('Y','N') NOT NULL DEFAULT 'N',
-  `reports_taxes` enum('Y','N') NOT NULL DEFAULT 'N',
-  `recivings` enum('Y','N') NOT NULL DEFAULT 'N',
-  `recivings_stock` enum('Y','N') NOT NULL DEFAULT 'N',
-  `sales` enum('Y','N') NOT NULL DEFAULT 'N',
-  `sales_stock` enum('Y','N') NOT NULL DEFAULT 'N',
-  `employee` enum('Y','N') NOT NULL DEFAULT 'N',
-  `gift_cards` enum('Y','N') DEFAULT 'N',
-  `messages` enum('Y','N') NOT NULL DEFAULT 'N',
-  `store_config` enum('Y','N') NOT NULL DEFAULT 'N',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `employee_permissions`
---
-
-INSERT INTO `employee_permissions` (`employee_permissions_id`, `employee_fk`, `customer`, `items`, `items_stock`, `supplier`, `reports`, `reports_categories`, `reports_customer`, `reports_discount`, `reports_employee`, `reports_inventory`, `reports_items`, `reports_payments`, `reports_recivings`, `reports_sales`, `reports_suppiler`, `reports_taxes`, `recivings`, `recivings_stock`, `sales`, `sales_stock`, `employee`, `gift_cards`, `messages`, `store_config`, `created_at`, `updated_at`) VALUES
-(1, 2, 'Y', 'Y', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', '2017-05-03 10:53:55', '2017-05-02 23:36:14');
+INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `gender`, `email`, `phone_number`, `address_one`, `address_two`, `city`, `state`, `zip`, `country`, `comments`, `username`, `password`, `ep_customer`, `ep_items`, `ep_items_store`, `ep_supplier`, `ep_reports`, `ep_reports_categories`, `ep_reports_customer`, `ep_reports_discount`, `ep_reports_employee`, `ep_reports_inventory`, `ep_reports_items`, `ep_reports_payments`, `ep_reports_reciving`, `ep_reports_sale`, `ep_reports_supplier`, `ep_reports_taxes`, `ep_recivings`, `ep_reciving_store`, `ep_sales`, `ep_sales_store`, `ep_employee`, `ep_gift_cards`, `ep_message`, `ep_store_config`, `created_at`, `updated_at`) VALUES
+(2, 'surendar k', 'k', 'M', 'surea17@yahoo.com', '9659869830', 'no 123 main street,', 'vikkravandi', 'villupuram', 'Tamil Nadu', 605652, 'india', 'awesome employee', 'admin', '$2y$10$8E.Cm9iP493s93v7NrvnsuLsShvagDJ17iMyjsXqcT9y8I5.JKt/u', 'Y', 'Y', '', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '', 'Y', 'Y', '', 'Y', '', 'Y', 'Y', '', 'Y', '2017-05-03 06:54:22', '2017-06-08 05:16:29'),
+(4, 'arun', 'k', 'M', 'surea17@yahoo.com', '9659869830', 'no 123 main street,', 'vikkravandi', 'villupuram', 'Tamil Nadu', 605652, 'india', 'awesome employee', 'emp1', '$2y$10$BK1OdGVzKefydgXTVRDENOSNOe9iY7sqb7BO3rjpDl9T7TetBZwb2', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '2017-05-03 07:31:05', '2017-05-03 07:31:05'),
+(6, 'surendar aa', 'k', 'M', 'surea17@yahoo.com', '9659869830', 'no 123 main street,', 'vikkravandi', 'villupuram', 'Tamil Nadu', 605652, 'india', 'awesome employee', 'admin', '$2y$10$iy5bwL4641SJBuPSDwUXZezBrKglVFpZxjN1W02TrpCwl4MMPZPtW', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '2017-06-07 11:26:14', '2017-06-07 11:26:14');
 
 -- --------------------------------------------------------
 
@@ -555,20 +516,6 @@ ALTER TABLE `employee`
   ADD PRIMARY KEY (`employee_id`);
 
 --
--- Indexes for table `employee_login`
---
-ALTER TABLE `employee_login`
-  ADD PRIMARY KEY (`employee_login_id`),
-  ADD KEY `employee_fk` (`employee_fk`);
-
---
--- Indexes for table `employee_permissions`
---
-ALTER TABLE `employee_permissions`
-  ADD PRIMARY KEY (`employee_permissions_id`),
-  ADD KEY `employee_fk` (`employee_fk`);
-
---
 -- Indexes for table `gift_card`
 --
 ALTER TABLE `gift_card`
@@ -664,17 +611,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `employee_login`
---
-ALTER TABLE `employee_login`
-  MODIFY `employee_login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `employee_permissions`
---
-ALTER TABLE `employee_permissions`
-  MODIFY `employee_permissions_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `gift_card`
 --
@@ -745,18 +682,6 @@ ALTER TABLE `supplier`
 --
 
 --
--- Constraints for table `employee_login`
---
-ALTER TABLE `employee_login`
-  ADD CONSTRAINT `employee_fk` FOREIGN KEY (`employee_fk`) REFERENCES `employee` (`employee_id`);
-
---
--- Constraints for table `employee_permissions`
---
-ALTER TABLE `employee_permissions`
-  ADD CONSTRAINT `permission_employee_fk` FOREIGN KEY (`employee_fk`) REFERENCES `employee` (`employee_id`);
-
---
 -- Constraints for table `gift_card`
 --
 ALTER TABLE `gift_card`
@@ -780,6 +705,7 @@ ALTER TABLE `item_kits`
 ALTER TABLE `sales`
   ADD CONSTRAINT `sales_customer_fk` FOREIGN KEY (`customer_fk`) REFERENCES `customer` (`customer_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `sales_item_fk` FOREIGN KEY (`item_fk`) REFERENCES `items` (`item_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
